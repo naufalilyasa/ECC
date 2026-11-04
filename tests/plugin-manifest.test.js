@@ -172,6 +172,7 @@ test('docs/SELECTIVE-INSTALL-ARCHITECTURE.md repoVersion example matches package
 });
 
 test('.opencode/plugins/ecc-hooks.ts active plugin banner matches package.json', () => {
+  if (!fs.existsSync(opencodeHooksPluginPath)) return; // v1 plugin disabled (OpenCode v2)
   const source = fs.readFileSync(opencodeHooksPluginPath, 'utf8');
   const match = source.match(new RegExp(`## Active Plugin: ECC v(${semverPattern})`));
   assert.ok(match, 'Expected .opencode/plugins/ecc-hooks.ts to declare an active plugin banner');

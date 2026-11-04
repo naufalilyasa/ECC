@@ -108,3 +108,12 @@ ecc2/target/
 assets/images/security/badrudi-exploit.mp4
 
 .aider*
+.guardian-angel/
+
+# OpenCode session state and backups
+.opencode/opencode.db
+.omo/
+*.bak-*
+
+# Local review markers
+.opencode/code-review-quick-base
