@@ -109,8 +109,19 @@ Command custom yang telah dibuat dan diselaraskan di `.opencode/commands/` dan `
    - **Alur**: Analisis strict compiler (`tsc --noUnusedLocals` / `knip`) -> dispatch 2 subagent `explore` paralel (cari orphaned files & unreferenced exports) -> verifikasi referensi -> delegasikan pembersihan ke subagent `code-simplifier` berpedoman skill `remove-deadcode` dan `remove-ai-slops` -> verifikasi build & test.
    - **Contoh Pakai**: `/refactor-clean`, `/refactor-clean src/components/`.
 
+10. **`/database-review`** *(Baru)*
+    - **Tujuan**: Review database multi-engine (PostgreSQL/MySQL/SQLite/ClickHouse/MongoDB/DynamoDB/Redis + ORM) dengan deteksi engine fail-closed, review spesifik engine, proposal penamaan bisnis (proposal-only), dan migration safety.
+    - **Alur**:
+      - Phase 0: Engine & ORM Detection (scan `package.json` deps, `schema.prisma`, `drizzle.config.ts`, `settings.py`, `application.yml`, `alembic.ini`, `knexfile.*` -> engine matrix `{engine, orm, confidence, evidence file:line}`; sinyal nol/ambigu -> tanya user, DILARANG default Postgres).
+      - Phase 1: Scope (`git diff --name-only HEAD` difilter ke migrations/schema/ORM/SQL; argumen: path | `--naming` | `--full-schema`).
+      - Phase 2: Engine-specific review via `@database-reviewer` (dispatcher ber-modul) yang routing ke skill: postgres-patterns, mysql-patterns, clickhouse-io, redis-patterns, prisma-patterns, jpa-patterns, mybatis-patterns, kotlin-exposed-patterns, mongodb-patterns, dynamodb-patterns, database-migrations (SQLite inline). Setiap temuan WAJIB cite `file:line`.
+      - Phase 3: Business naming & domain-fit (ekstrak kosakata codebase -> cek ubiquitous language + konvensi lokal + reserved words + length -> Rename Proposal Table; PROPOSAL-ONLY, never auto-apply).
+      - Phase 4: Migration safety (`database-migrations`: expand-contract, concurrent index, batched backfill).
+      - Phase 5: Structured report (engine coverage, findings by severity, rename proposals, out_of_scope eksplisit: Cassandra/Firestore/Neo4j).
+    - **Contoh Pakai**: `/database-review`, `/database-review migrations/`, `/database-review --naming`, `/database-review --full-schema`.
+
 ### D. Frontend & Visual Engineering
-10. **`/build-dashboard`** *(Baru)*
+11. **`/build-dashboard`** *(Baru)*
     - **Tujuan**: Orkestrasi 5-fase terpadu pembuatan dashboard analitik dari framing pertanyaan bisnis, inspeksi skema database, penentuan arah visual, penulisan kontrak desain dengan 10 state UI wajib, hingga handoff perencanaan & implementasi TDD.
     - **Alur**:
       - Phase 0: Business Question & KPI Framing (**HARD GATE**). Deteksi domain bisnis dari goal/user/konteks, muat skill domain ECC yang sesuai (`inventory-demand-planning`, `production-scheduling`, `logistics-exception-management`, `carrier-relationship-management`, `returns-reverse-logistics`, `customs-trade-compliance`, `quality-nonconformance`, `energy-procurement`, `customer-billing-ops`, `finance-billing-ops`, `market-research`, `people-analytics`, `retail-merchandising-analytics`, `insurance-operations-analytics`; fallback `dashboard-builder` + `product-lens`). Setiap metrik wajib menjawab: pertanyaan bisnis apa, keputusan apa yang berubah, siapa pemiliknya. Metrik tanpa ketiganya **ditolak** (vanity metric, cermin implementasi, tanpa pemilik).

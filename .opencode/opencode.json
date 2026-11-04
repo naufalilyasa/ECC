@@ -43,6 +43,7 @@
       "tools": {
         "read": true,
         "bash": true,
+        "question": true,
         "write": false,
         "edit": false
       }
@@ -160,14 +161,16 @@
       }
     },
     "database-reviewer": {
-      "description": "PostgreSQL database specialist for query optimization, schema design, security, and performance. Incorporates Supabase best practices.",
+      "description": "Multi-engine database specialist for query optimization, schema design, security, and performance across PostgreSQL, MySQL, SQLite, ClickHouse, MongoDB, DynamoDB, and Redis. Incorporates Supabase best practices.",
       "mode": "subagent",
       "prompt": "{file:prompts/agents/database-reviewer.txt}",
       "tools": {
         "read": true,
-        "write": true,
-        "edit": true,
-        "bash": true
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "write": false,
+        "edit": false
       }
     },
     "cpp-reviewer": {
@@ -521,6 +524,10 @@
     "build-dashboard": {
       "description": "Orchestrate 5-phase dashboard creation from business-question framing through database inspection to 10-state design contract and implementation",
       "template": "{file:commands/build-dashboard.md}\n\n$ARGUMENTS"
+    },
+    "database-review": {
+      "description": "Multi-engine database review (PostgreSQL/MySQL/SQLite/ClickHouse/MongoDB/DynamoDB/Redis + ORMs): fail-closed engine detection, engine-specific review, business naming proposals, migration safety",
+      "template": "{file:commands/database-review.md}\n\n$ARGUMENTS"
     },
     "update-docs": {
       "description": "Update documentation by dispatching explore to analyze codebase evolution, then doc-updater to stamp commit markers",

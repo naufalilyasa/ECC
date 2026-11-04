@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "totalCommands": 98,
+  "totalCommands": 99,
   "commands": [
     {
       "command": "aside",
@@ -107,6 +107,31 @@
         "tdd-workflow"
       ],
       "path": "commands/cpp-test.md"
+    },
+    {
+      "command": "database-review",
+      "description": "Multi-engine database review (PostgreSQL/MySQL/SQLite/ClickHouse/MongoDB/DynamoDB/Redis + ORMs) with fail-closed engine detection, engine-specific review, business naming proposals, and migration safety",
+      "type": "orchestration",
+      "primaryAgents": [
+        "database-reviewer"
+      ],
+      "allAgents": [
+        "database-reviewer"
+      ],
+      "skills": [
+        "clickhouse-io",
+        "database-migrations",
+        "dynamodb-patterns",
+        "jpa-patterns",
+        "kotlin-exposed-patterns",
+        "mongodb-patterns",
+        "mybatis-patterns",
+        "mysql-patterns",
+        "postgres-patterns",
+        "prisma-patterns",
+        "redis-patterns"
+      ],
+      "path": "commands/database-review.md"
     },
     {
       "command": "ecc-guide",
@@ -1073,7 +1098,7 @@
     "byType": {
       "build": 2,
       "general": 12,
-      "orchestration": 12,
+      "orchestration": 13,
       "planning": 2,
       "refactoring": 1,
       "review": 16,
@@ -1101,6 +1126,10 @@
         "count": 1
       },
       {
+        "agent": "database-reviewer",
+        "count": 1
+      },
+      {
         "agent": "go-build-resolver",
         "count": 1
       },
@@ -1114,10 +1143,6 @@
       },
       {
         "agent": "kotlin-reviewer",
-        "count": 1
-      },
-      {
-        "agent": "planner",
         "count": 1
       }
     ],

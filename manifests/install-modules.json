@@ -295,7 +295,9 @@
       "paths": [
         "skills/clickhouse-io",
         "skills/database-migrations",
+        "skills/dynamodb-patterns",
         "skills/jpa-patterns",
+        "skills/mongodb-patterns",
         "skills/mybatis-patterns",
         "skills/mysql-patterns",
         "skills/postgres-patterns",

@@ -13,7 +13,7 @@
 | `/plan-prd` | Generate a lean, problem-first PRD and hand off to `/plan` for implementation planning |
 | `/feature-dev` | Guided feature development with codebase understanding and architecture focus |
 | `/code-review` | Code review — local uncommitted changes or GitHub PR (pass PR number/URL for PR mode) |
-| `/review-pr` | Comprehensive PR review using specialized agents |
+| `/database-review` | Multi-engine database review — fail-closed engine detection, engine-specific findings, business naming proposals (proposal-only), migration safety |
 | `/build-fix` | Detect and fix build errors — delegates to the right build-resolver agent automatically |
 | `/quality-gate` | Quality gate check against project standards |
 | `/santa-loop` | Adversarial dual-review convergence loop — two independent model reviewers must both approve before code ships |
