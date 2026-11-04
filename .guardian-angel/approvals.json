@@ -1,0 +1,325 @@
+{
+  "version": 1,
+  "entries": {
+    "/Users/ctp-itdev2/ECC\u0000ses_ebb6f7ea4ffeMd5LV59b7n2E9j\u0000/Users/ctp-itdev2/ECC\u0000ask:interpreter-inline": {
+      "grantedAt": 1792988406613,
+      "expiresAt": 1793074806613,
+      "reason": "inline interpreter code cannot be inspected; approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_ebb6f7ea4ffeMd5LV59b7n2E9j\u0000/tmp/oc-v2-test/opencode\u0000ask:script-outside": {
+      "grantedAt": 1792989201882,
+      "expiresAt": 1793075601882,
+      "reason": "executing a script located outside the workspace (./opencode) requires approval"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_ebb6f7ea4ffeMd5LV59b7n2E9j\u0000/Users/ctp-itdev2/ECC\u0000ask:write-outside": {
+      "grantedAt": 1792989437589,
+      "expiresAt": 1793075837589,
+      "reason": "writing outside the workspace: /tmp/debug-config-v2.json"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_ebb6f7ea4ffeMd5LV59b7n2E9j\u0000/Users/ctp-itdev2/ECC\u0000ask:dynamic-write": {
+      "grantedAt": 1792990885776,
+      "expiresAt": 1793077285776,
+      "reason": "writing to a dynamic target: +%Y%m%dT%H%M%SZ)-dual-compat"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_ebb6f7ea4ffeMd5LV59b7n2E9j\u0000/Users/ctp-itdev2/.config/opencode/plugins/guardian-angel.ts\u0000ask:write-outside": {
+      "grantedAt": 1792994984944,
+      "expiresAt": 1793081384944,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/plugins/guardian-angel.ts"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_ebb6f7ea4ffeMd5LV59b7n2E9j\u0000/Users/ctp-itdev2/.config/opencode/plugins/rtk.ts\u0000ask:write-outside": {
+      "grantedAt": 1792995551566,
+      "expiresAt": 1793081951566,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/plugins/rtk.ts"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_ebb6f7ea4ffeMd5LV59b7n2E9j\u0000/Users/ctp-itdev2/.config/opencode/plugins/design-quality-check.js\u0000ask:write-outside": {
+      "grantedAt": 1792995602059,
+      "expiresAt": 1793082002059,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/plugins/design-quality-check.js"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_ebb6f7ea4ffeMd5LV59b7n2E9j\u0000/Users/ctp-itdev2/.config/opencode/plugins/agy-delegate-guard.js\u0000ask:write-outside": {
+      "grantedAt": 1792995624286,
+      "expiresAt": 1793082024286,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/plugins/agy-delegate-guard.js"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_ebb6f7ea4ffeMd5LV59b7n2E9j\u0000/Users/ctp-itdev2/.config/opencode/plugins/agy-task-bridge.js\u0000ask:write-outside": {
+      "grantedAt": 1792995710493,
+      "expiresAt": 1793082110493,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/plugins/agy-task-bridge.js"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_ebb6f7ea4ffeMd5LV59b7n2E9j\u0000/Users/ctp-itdev2/.config/opencode/plugins/agentmemory-capture.ts\u0000ask:write-outside": {
+      "grantedAt": 1792997317066,
+      "expiresAt": 1793083717066,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/plugins/agentmemory-capture.ts"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_ebb6f7ea4ffeMd5LV59b7n2E9j\u0000/Users/ctp-itdev2/.config/opencode/plugins/dcp-auto-compress.ts\u0000ask:write-outside": {
+      "grantedAt": 1792997883341,
+      "expiresAt": 1793084283341,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/plugins/dcp-auto-compress.ts"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_ebb6f7ea4ffeMd5LV59b7n2E9j\u0000/Users/ctp-itdev2/.config/opencode/plugins/index.ts\u0000ask:write-outside": {
+      "grantedAt": 1792998138222,
+      "expiresAt": 1793084538222,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/plugins/index.ts"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_ebb6f7ea4ffeMd5LV59b7n2E9j\u0000/Users/ctp-itdev2/.config/opencode/plugins/ecc-hooks.ts\u0000ask:write-outside": {
+      "grantedAt": 1792998326597,
+      "expiresAt": 1793084726597,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/plugins/ecc-hooks.ts"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_ebb6f7ea4ffeMd5LV59b7n2E9j\u0000/Users/ctp-itdev2/ECC\u0000sql:ask": {
+      "grantedAt": 1793003970743,
+      "expiresAt": 1793090370743,
+      "reason": "query could not be parsed"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/ECC\u0000ask:interpreter-inline": {
+      "grantedAt": 1793727322396,
+      "expiresAt": 1793813722396,
+      "reason": "inline interpreter code cannot be inspected; approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/ECC\u0000ask:overwrite": {
+      "grantedAt": 1793717985554,
+      "expiresAt": 1793804385554,
+      "reason": "overwriting an existing file: /Users/ctp-itdev2/ECC/.opencode/code-review-quick-base"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/opencode.json\u0000ask:write-outside": {
+      "grantedAt": 1793698893415,
+      "expiresAt": 1793785293415,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/opencode.json"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/ECC\u0000ask:write-outside": {
+      "grantedAt": 1793698811053,
+      "expiresAt": 1793785211053,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/commands/build-dashboard.md"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/prompts/agents/security-reviewer.txt\u0000ask:write-outside": {
+      "grantedAt": 1793421700379,
+      "expiresAt": 1793508100379,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/prompts/agents/security-reviewer.txt"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/prompts/agents/planner.txt\u0000ask:write-outside": {
+      "grantedAt": 1793423916209,
+      "expiresAt": 1793510316209,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/prompts/agents/planner.txt"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/commands/plan.md\u0000ask:write-outside": {
+      "grantedAt": 1793588179743,
+      "expiresAt": 1793674579743,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/commands/plan.md"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/commands/code-review-quick.md\u0000ask:write-outside": {
+      "grantedAt": 1793588459707,
+      "expiresAt": 1793674859707,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/commands/code-review-quick.md"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e6f43abd1ffeZY2vsZVfQoDUTl\u0000/Users/ctp-itdev2/ECC\u0000ask:overwrite": {
+      "grantedAt": 1793429992385,
+      "expiresAt": 1793516392385,
+      "reason": "overwriting an existing file: /Users/ctp-itdev2/ECC/docs/plans/markdown-lint-check.plan.md"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/ECC\u0000ask:dynamic-write": {
+      "grantedAt": 1793720342407,
+      "expiresAt": 1793806742407,
+      "reason": "writing to a dynamic target: s/^timeout 60 lima --instance/$TIMEOUT_BIN 60 lima --instance/; s/^timeout 120 lima --instance/$TIMEOUT_BIN 120 lima --instance/"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/prompts/agents/intent-gate.txt\u0000ask:write-outside": {
+      "grantedAt": 1793439683466,
+      "expiresAt": 1793526083466,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/prompts/agents/intent-gate.txt"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/prompts/agents/build.txt\u0000ask:write-outside": {
+      "grantedAt": 1793677354794,
+      "expiresAt": 1793763754794,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/prompts/agents/build.txt"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/plugins/dcp-auto-compress.ts\u0000ask:write-outside": {
+      "grantedAt": 1793672772409,
+      "expiresAt": 1793759172409,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/plugins/dcp-auto-compress.ts"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/dcp.jsonc\u0000ask:write-outside": {
+      "grantedAt": 1793679300989,
+      "expiresAt": 1793765700989,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/dcp.jsonc"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/skills/humanizer-lint/scripts/analyze.mjs\u0000ask:script-outside": {
+      "grantedAt": 1793549947938,
+      "expiresAt": 1793636347938,
+      "reason": "executing a script located outside the workspace (~/.config/opencode/skills/humanizer-lint/scripts/analyze.mjs) requires approval"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/prompts/agents/doc-updater.txt\u0000ask:write-outside": {
+      "grantedAt": 1793550226789,
+      "expiresAt": 1793636626789,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/prompts/agents/doc-updater.txt"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e66235cbcffednWiFgy2QM21wR\u0000/Users/ctp-itdev2/ECC\u0000sql:ask": {
+      "grantedAt": 1793583002690,
+      "expiresAt": 1793669402690,
+      "reason": "unclassified SQL"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e66235cbcffednWiFgy2QM21wR\u0000/Users/ctp-itdev2/ECC\u0000ask:interpreter-inline": {
+      "grantedAt": 1793583585230,
+      "expiresAt": 1793669985230,
+      "reason": "inline interpreter code cannot be inspected; approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/prompts/agents/multimodal-looker.txt\u0000ask:write-outside": {
+      "grantedAt": 1793584325017,
+      "expiresAt": 1793670725017,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/prompts/agents/multimodal-looker.txt"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e66096cceffeYpb83xpKbG9sDX\u0000/Users/ctp-itdev2/ECC/scripts/ci/validate-no-personal-paths.js\u0000ask:script-protected": {
+      "grantedAt": 1793584529055,
+      "expiresAt": 1793670929055,
+      "reason": "script file 'scripts/ci/validate-no-personal-paths.js' references protected area (.guardian-angel/.git); approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/ECC/scripts/ci/validate-no-personal-paths.js\u0000ask:script-protected": {
+      "grantedAt": 1793764807273,
+      "expiresAt": 1793851207273,
+      "reason": "script file 'scripts/ci/validate-no-personal-paths.js' references protected area (.guardian-angel/.git); approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e6604c274ffeNmgzrtwLUww4P7\u0000/Users/ctp-itdev2/ECC/scripts/ci/validate-skill-host-compat.js\u0000ask:script-obfuscated": {
+      "grantedAt": 1793584866107,
+      "expiresAt": 1793671266107,
+      "reason": "script file 'scripts/ci/validate-skill-host-compat.js' contains dynamic or obfuscated code execution; approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/ECC/scripts/ci/validate-skill-host-compat.js\u0000ask:script-obfuscated": {
+      "grantedAt": 1793585316784,
+      "expiresAt": 1793671716784,
+      "reason": "script file 'scripts/ci/validate-skill-host-compat.js' contains dynamic or obfuscated code execution; approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/ECC/scripts/ci/check-unicode-safety.js\u0000ask:script-protected": {
+      "grantedAt": 1793585598101,
+      "expiresAt": 1793671998101,
+      "reason": "script file 'scripts/ci/check-unicode-safety.js' references protected area (.guardian-angel/.git); approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/commands/security.md\u0000ask:write-outside": {
+      "grantedAt": 1793589812841,
+      "expiresAt": 1793676212841,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/commands/security.md"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/commands/tdd.md\u0000ask:write-outside": {
+      "grantedAt": 1793589886343,
+      "expiresAt": 1793676286343,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/commands/tdd.md"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/commands/build-fix.md\u0000ask:write-outside": {
+      "grantedAt": 1793590046590,
+      "expiresAt": 1793676446590,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/commands/build-fix.md"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/commands/update-docs.md\u0000ask:write-outside": {
+      "grantedAt": 1793590063313,
+      "expiresAt": 1793676463313,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/commands/update-docs.md"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/commands/e2e.md\u0000ask:write-outside": {
+      "grantedAt": 1793590359371,
+      "expiresAt": 1793676759371,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/commands/e2e.md"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/opencode.jsonc\u0000ask:write-outside": {
+      "grantedAt": 1793593321332,
+      "expiresAt": 1793679721332,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/opencode.jsonc"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e65777a0cffe5TPxMWjgkp0frm\u0000/tmp/silent_scan.py\u0000ask:script-outside": {
+      "grantedAt": 1793594179408,
+      "expiresAt": 1793680579408,
+      "reason": "executing a script located outside the workspace (/tmp/silent_scan.py) requires approval"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e65777a0cffe5TPxMWjgkp0frm\u0000/Users/ctp-itdev2/ECC\u0000ask:interpreter-inline": {
+      "grantedAt": 1793594278792,
+      "expiresAt": 1793680678792,
+      "reason": "inline interpreter code cannot be inspected; approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/commands/init-deep.md\u0000ask:write-outside": {
+      "grantedAt": 1793602303829,
+      "expiresAt": 1793688703829,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/commands/init-deep.md"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e63543f2affeTjozxAwtq5frNz\u0000/Users/ctp-itdev2/ECC\u0000ask:interpreter-inline": {
+      "grantedAt": 1793630043257,
+      "expiresAt": 1793716443257,
+      "reason": "inline interpreter code cannot be inspected; approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e63340eebffeNLLWz67qeis1z4\u0000/Users/ctp-itdev2/ECC\u0000ask:interpreter-inline": {
+      "grantedAt": 1793632094187,
+      "expiresAt": 1793718494187,
+      "reason": "inline interpreter code cannot be inspected; approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e63340eebffeNLLWz67qeis1z4\u0000/Users/ctp-itdev2/ECC\u0000ask:write-outside": {
+      "grantedAt": 1793632366726,
+      "expiresAt": 1793718766726,
+      "reason": "writing outside the workspace: /tmp/secaudit-probe.txt"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e63340eebffeNLLWz67qeis1z4\u0000/tmp/secaudit-vprobe/vf.test.cjs\u0000ask:script-outside": {
+      "grantedAt": 1793633118093,
+      "expiresAt": 1793719518093,
+      "reason": "executing a script located outside the workspace (vf.test.cjs) requires approval"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/ECC\u0000ask:cd-dynamic": {
+      "grantedAt": 1793635082421,
+      "expiresAt": 1793721482421,
+      "reason": "berpindah ke direktori dinamis requires approval"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/ECC\u0000sql:ask": {
+      "grantedAt": 1793638884093,
+      "expiresAt": 1793725284093,
+      "reason": "query could not be parsed"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/skills/init-deep/SKILL.md\u0000ask:write-outside": {
+      "grantedAt": 1793639675161,
+      "expiresAt": 1793726075161,
+      "reason": "writing outside the workspace: /Users/ctp-itdev2/.config/opencode/skills/init-deep/SKILL.md"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e60fb9f2cffevtXS6RiEQQSjIy\u0000/Users/ctp-itdev2/ECC\u0000ask:interpreter-inline": {
+      "grantedAt": 1793669488813,
+      "expiresAt": 1793755888813,
+      "reason": "inline interpreter code cannot be inspected; approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/.config/opencode/plugins/dcp-auto-compress.ts\u0000ask:script-outside": {
+      "grantedAt": 1793681416564,
+      "expiresAt": 1793767816564,
+      "reason": "executing a script located outside the workspace (/Users/ctp-itdev2/.config/opencode/plugins/dcp-auto-compress.ts) requires approval"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e5e800e95ffeMwoc1oNtsG22FV\u0000/Users/ctp-itdev2/ECC\u0000ask:interpreter-inline": {
+      "grantedAt": 1793710955527,
+      "expiresAt": 1793797355527,
+      "reason": "inline interpreter code cannot be inspected; approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e5e6303c3ffe0VDOL2D8vwR6I7\u0000/Users/ctp-itdev2/ECC\u0000ask:interpreter-inline": {
+      "grantedAt": 1793713814805,
+      "expiresAt": 1793800214805,
+      "reason": "inline interpreter code cannot be inspected; approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e5e4e8a95ffeIw6ZWvc3XTaVOA\u0000/Users/ctp-itdev2/ECC\u0000ask:write-outside": {
+      "grantedAt": 1793715532626,
+      "expiresAt": 1793801932626,
+      "reason": "writing outside the workspace: /tmp/$OUT_FILE"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e5e4e8a95ffeIw6ZWvc3XTaVOA\u0000/Users/ctp-itdev2/ECC\u0000ask:interpreter-inline": {
+      "grantedAt": 1793715934915,
+      "expiresAt": 1793802334915,
+      "reason": "inline interpreter code cannot be inspected; approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e5e4e8a95ffeIw6ZWvc3XTaVOA\u0000/Users/ctp-itdev2/ECC\u0000ask:variable-command": {
+      "grantedAt": 1793717056196,
+      "expiresAt": 1793803456196,
+      "reason": "executing a command through a variable or substitution (\"$f\")) requires approval"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/ECC\u0000ask:unknown-path": {
+      "grantedAt": 1793718392192,
+      "expiresAt": 1793804792192,
+      "reason": "unknown path; approval required"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/dev/null\u0000ask:script-outside": {
+      "grantedAt": 1793726903336,
+      "expiresAt": 1793813303336,
+      "reason": "executing a script located outside the workspace (/dev/null) requires approval"
+    },
+    "/Users/ctp-itdev2/ECC\u0000ses_e84a3f623ffeLbUceyNN0WkuFx\u0000/Users/ctp-itdev2/ECC\u0000ask:git-push": {
+      "grantedAt": 1793766852250,
+      "expiresAt": 1793853252250,
+      "reason": "git push requires approval"
+    }
+  }
+}

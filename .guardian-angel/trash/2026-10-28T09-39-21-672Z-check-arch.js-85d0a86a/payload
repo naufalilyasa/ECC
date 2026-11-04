@@ -1,0 +1,8 @@
+const cp = require('child_process');
+const out = cp.execSync('opencode debug agents', { maxBuffer: 10 * 1024 * 1024 }).toString();
+const agents = JSON.parse(out);
+for (const a of agents) {
+  if (a.id === 'architect') {
+    console.log(JSON.stringify(a, null, 2));
+  }
+}

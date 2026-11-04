@@ -1,0 +1,3 @@
+const fs = require('fs');
+console.log('architect.txt:', fs.readFileSync('/Users/ctp-itdev2/.config/opencode/prompts/agents/architect.txt', 'utf8').slice(0, 200));
+console.log('code-reviewer.txt:', fs.readFileSync('/Users/ctp-itdev2/.config/opencode/prompts/agents/code-reviewer.txt', 'utf8').slice(0, 200));

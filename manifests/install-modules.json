@@ -233,6 +233,7 @@
         "skills/react-patterns",
         "skills/react-performance",
         "skills/react-testing",
+        "skills/retail-merchandising-analytics",
         "skills/rust-patterns",
         "skills/rust-testing",
         "skills/springboot-patterns",
@@ -243,6 +244,7 @@
         "skills/vue-patterns",
         "skills/accessibility",
         "skills/bun-runtime",
+        "skills/design-contract-system",
         "skills/design-system",
         "skills/django-celery",
         "skills/flutter-dart-code-review",
@@ -403,6 +405,7 @@
         "skills/eval-harness",
         "skills/hookify-rules",
         "skills/iterative-retrieval",
+        "skills/insurance-operations-analytics",
         "skills/plan-canvas",
         "skills/plankton-code-quality",
         "skills/production-audit",
@@ -1103,6 +1106,7 @@
         "skills/logistics-exception-management",
         "skills/production-scheduling",
         "skills/quality-nonconformance",
+        "skills/people-analytics",
         "skills/returns-reverse-logistics"
       ],
       "targets": [

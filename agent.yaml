@@ -58,6 +58,7 @@ skills:
   - database-migrations
   - deep-research
   - deployment-patterns
+  - design-contract-system
   - design-system
   - django-patterns
   - django-security
@@ -86,6 +87,7 @@ skills:
   - healthcare-emr-patterns
   - healthcare-eval-harness
   - healthcare-phi-compliance
+  - insurance-operations-analytics
   - inventory-demand-planning
   - investor-materials
   - investor-outreach
@@ -119,6 +121,7 @@ skills:
   - nutrient-document-processing
   - nuxt4-patterns
   - osint-investigation
+  - people-analytics
   - perl-patterns
   - perl-security
   - perl-testing
@@ -144,6 +147,7 @@ skills:
   - react-testing
   - regex-vs-llm-structured-text
   - repo-scan
+  - retail-merchandising-analytics
   - returns-reverse-logistics
   - rules-distill
   - rust-patterns

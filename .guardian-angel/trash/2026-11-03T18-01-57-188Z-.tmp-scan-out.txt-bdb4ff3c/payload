@@ -1,0 +1,107 @@
+total skills indexed: 393
+sales/crm/revops: 25
+   - autonomous-loops
+   - benchmark-methodology
+   - brownfield-retrospective
+   - competitive-platform-analysis
+   - competitive-report-structure
+   - cost-aware-llm-pipeline
+marketing/growth: 21
+   - agent-security-hardening
+   - article-writing
+   - brand-voice
+   - connections-optimizer
+   - content-engine
+   - content-hash-cache-pattern
+finance/accounting: 9
+   - customer-billing-ops
+   - customs-trade-compliance
+   - data-throughput-accelerator
+   - ecc-tools-cost-audit
+   - finance-billing-ops
+   - hookify-rules
+hr/people: 0
+supply-chain: 10
+   - automation-audit-ops
+   - carrier-relationship-management
+   - configure-ecc
+   - data-throughput-accelerator
+   - energy-procurement
+   - inventory-demand-planning
+manufacturing/ops: 46
+   - agentic-os
+   - api-design
+   - codehealth-mcp
+   - coding-standards
+   - continuous-agent-loop
+   - contract-first
+customer-success/support: 5
+   - customer-billing-ops
+   - jira-integration
+   - implement
+   - to-tickets
+   - wayfinder
+product/ux-metrics: 5
+   - nasiko-control-plane
+   - experiment-designer
+   - humanizer-lint
+   - senior-data-scientist
+   - statistical-analyst
+legal/compliance: 17
+   - accessibility
+   - contract-first
+   - customs-trade-compliance
+   - database-migrations
+   - defi-amm-security
+   - design-contract-system
+healthcare: 7
+   - healthcare-cdss-patterns
+   - healthcare-emr-patterns
+   - healthcare-eval-harness
+   - healthcare-phi-compliance
+   - hipaa-compliance
+   - scientific-db-pubmed-database
+real-estate/facilities: 11
+   - agent-payment-x402
+   - canary-watch
+   - deployment-patterns
+   - django-verification
+   - energy-procurement
+   - fsharp-testing
+education: 5
+   - documentation-lookup
+   - ito-training
+   - mle-workflow
+   - pytorch-patterns
+   - data-quality-auditor
+insurance: 0
+energy/utilities: 4
+   - customs-trade-compliance
+   - defi-amm-security
+   - energy-procurement
+   - search-first
+agriculture: 0
+retail/ecommerce: 3
+   - inventory-demand-planning
+   - ito-baskets
+   - prediction-market-risk-review
+media/advertising: 4
+   - agent-eval
+   - energy-procurement
+   - x-api
+   - ocs-programmatic-ai
+telecom: 0
+saas-metrics: 24
+   - agentic-engineering
+   - brand-discovery
+   - carrier-relationship-management
+   - config-gc
+   - content-hash-cache-pattern
+   - cost-aware-llm-pipeline
+data/analytics-ops: 12
+   - dashboard-builder
+   - data-throughput-accelerator
+   - django-celery
+   - enterprise-agent-ops
+   - github-ops
+   - mle-workflow

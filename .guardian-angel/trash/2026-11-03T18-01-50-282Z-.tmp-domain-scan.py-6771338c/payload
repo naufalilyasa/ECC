@@ -1,0 +1,49 @@
+import os, re
+
+roots = ['skills', os.path.expanduser('~/.config/opencode/skills')]
+seen = {}
+for root in roots:
+    if not os.path.isdir(root):
+        continue
+    for name in sorted(os.listdir(root)):
+        p = os.path.join(root, name, 'SKILL.md')
+        if name in seen or not os.path.isfile(p):
+            continue
+        raw = open(p, encoding='utf-8', errors='replace').read()
+        m = re.match(r'^---\s*\n(.*?)\n---', raw, re.S)
+        desc = ''
+        if m:
+            dm = re.search(r'^description:\s*(.+)$', m.group(1), re.M)
+            if dm:
+                desc = dm.group(1).strip().strip('"').strip("'")
+        seen[name] = desc
+
+print('total skills indexed:', len(seen))
+
+buckets = {
+    'sales/crm/revops': ['sales', 'crm', 'pipeline', 'lead', 'quota', 'deal'],
+    'marketing/growth': ['marketing', 'campaign', 'growth', 'seo', 'content', 'social'],
+    'finance/accounting': ['finance', 'accounting', 'invoice', 'billing', 'margin', 'tax', 'treasury'],
+    'hr/people': ['hiring', 'recruit', 'payroll', 'talent', 'headcount'],
+    'supply-chain': ['supply chain', 'inventory', 'logistics', 'warehouse', 'freight', 'procurement'],
+    'manufacturing/ops': ['manufacturing', 'production', 'oee', 'quality', 'scheduling'],
+    'customer-success/support': ['customer success', 'churn', 'nps', 'ticket', 'helpdesk'],
+    'product/ux-metrics': ['retention', 'engagement', 'activation', 'cohort', 'experiment'],
+    'legal/compliance': ['legal', 'compliance', 'contract', 'gdpr', 'regulatory'],
+    'healthcare': ['healthcare', 'clinical', 'patient', 'cdss', 'medical'],
+    'real-estate/facilities': ['real estate', 'property', 'facilit', 'lease'],
+    'education': ['education', 'student', 'course', 'lms', 'training'],
+    'insurance': ['insurance', 'underwriting', 'actuarial'],
+    'energy/utilities': ['energy', 'utility', 'tariff', 'ppa', 'electricity'],
+    'agriculture': ['agriculture', 'farm', 'crop', 'yield'],
+    'retail/ecommerce': ['retail', 'ecommerce', 'e-commerce', 'merchandis', 'basket'],
+    'media/advertising': ['advertising', 'ad tech', 'ctr', 'impression', 'programmatic'],
+    'telecom': ['telecom', 'subscriber', 'arpu', '5g'],
+    'saas-metrics': ['saas', 'mrr', 'arr', 'ltv', 'cac', 'net revenue retention'],
+    'data/analytics-ops': ['data quality', 'etl', 'observability', 'monitoring', 'sre', 'incident'],
+}
+for bucket, kws in buckets.items():
+    hits = [n for n, d in seen.items() if any(k in (n + ' ' + d).lower() for k in kws)]
+    print(bucket + ': ' + str(len(hits)))
+    for h in hits[:6]:
+        print('   - ' + h)

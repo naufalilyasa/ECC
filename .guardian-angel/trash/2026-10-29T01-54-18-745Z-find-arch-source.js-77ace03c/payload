@@ -1,0 +1,18 @@
+const fs = require('fs');
+const cp = require('child_process');
+
+console.log('Searching in ~/.config/opencode:');
+try {
+  const res1 = cp.execSync('grep -rn "Ensure consistency across codebase" /Users/ctp-itdev2/.config/opencode', { encoding: 'utf8' });
+  console.log(res1);
+} catch (e) {
+  console.log('grep ~/.config/opencode returned none or error');
+}
+
+console.log('Searching in CWD /Users/ctp-itdev2/ECC:');
+try {
+  const res2 = cp.execSync('grep -rn "Ensure consistency across codebase" /Users/ctp-itdev2/ECC/.opencode', { encoding: 'utf8' });
+  console.log(res2);
+} catch (e) {
+  console.log('grep ECC/.opencode returned none or error');
+}

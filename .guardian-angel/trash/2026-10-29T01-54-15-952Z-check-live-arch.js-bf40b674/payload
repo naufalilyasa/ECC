@@ -1,0 +1,7 @@
+const cp = require('child_process');
+const out = cp.execSync('opencode debug agents', { maxBuffer: 10 * 1024 * 1024 }).toString();
+const agents = JSON.parse(out);
+const arch = agents.find(a => a.id === 'architect');
+console.log('=== CURRENT ACTIVE ARCHITECT IN OPENCODE ===');
+console.log('name:', arch.name);
+console.log('system:', arch.system.slice(0, 500));

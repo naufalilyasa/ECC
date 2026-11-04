@@ -1,0 +1,136 @@
+#!/usr/bin/env node
+/**
+ * Wire newly authored ECC skills into every publish/install surface.
+ * Surfaces (mirrors the design-contract-system precedent):
+ *   - package.json files[]
+ *   - manifests/install-modules.json
+ *   - agent.yaml skills list
+ *   - .agents/skills/<name>/SKILL.md  (Codex copy, restricted frontmatter)
+ *   - .agents/skills/<name>/agents/openai.yaml
+ * Usage: node .tmp-wire-skills.cjs <name> [<name> ...]
+ */
+const fs = require('fs');
+const path = require('path');
+
+const REPO = process.cwd();
+
+const OPENAI_YAML = (display, short, color, prompt) => `interface:
+  display_name: "${display}"
+  short_description: "${short}"
+  brand_color: "${color}"
+  default_prompt: "${prompt}"
+policy:
+  allow_implicit_invocation: true
+`;
+
+const META = {
+  'people-analytics': {
+    display: 'People Analytics',
+    short: 'HR and workforce KPI vocabulary for dashboards',
+    color: '#8B5CF6',
+    prompt: 'Use $people-analytics to define attrition, hiring funnel, and compensation metrics before building an HR dashboard.',
+  },
+  'retail-merchandising-analytics': {
+    display: 'Retail Merchandising Analytics',
+    short: 'Sell-through, GMROI, and margin KPI vocabulary',
+    color: '#F59E0B',
+    prompt: 'Use $retail-merchandising-analytics to define sell-through, GMROI, and markdown metrics before building a retail dashboard.',
+  },
+  'insurance-operations-analytics': {
+    display: 'Insurance Operations Analytics',
+    short: 'Loss ratio, claims, and conversion KPI vocabulary',
+    color: '#0EA5E9',
+    prompt: 'Use $insurance-operations-analytics to define loss ratio, claims, and quote-to-bind metrics before building an insurance dashboard.',
+  },
+};
+
+function insertSorted(file, entry, transform) {
+  const raw = fs.readFileSync(file, 'utf8');
+  const lines = raw.split('\n');
+  // Find the sorted block boundaries by locating an anchor line's indent style.
+  const target = transform(entry);
+  if (raw.includes(target)) {
+    console.log(`  skip (already present): ${entry}`);
+    return;
+  }
+  // Insert into the first sorted region that contains a neighbor greater than entry.
+  let bestIdx = -1;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const trimmed = line.trim();
+    if (!trimmed.startsWith(entry.split('/')[0]) && !trimmed.includes(entry)) continue;
+  }
+  // Simpler: locate lines that look like list entries, collect those > entry, insert before the first.
+  const entryKey = entry;
+  for (let i = 0; i < lines.length; i++) {
+    const t = lines[i].trim().replace(/^["'-]\s*/, '').replace(/[",]+$/, '');
+    if (!t || t.startsWith('//') || t.startsWith('#')) continue;
+    if (t > entryKey && t.localeCompare(entryKey) > 0 && /^[a-z0-9]/.test(t)) {
+      // only consider plausible skill-name lines
+      if (!/^skills\/[a-z0-9-]+$/.test(t) && !/^[a-z0-9-]+$/.test(t)) continue;
+      bestIdx = i;
+      break;
+    }
+  }
+  if (bestIdx === -1) {
+    console.error(`  FAIL: no sorted insertion point for ${entry} in ${file}`);
+    process.exitCode = 1;
+    return;
+  }
+  const indent = lines[bestIdx].match(/^\s*/)[0];
+  lines.splice(bestIdx, 0, indent + target);
+  fs.writeFileSync(file, lines.join('\n'));
+  console.log(`  inserted: ${entry} -> ${file}`);
+}
+
+function wireCodexCopy(name) {
+  const src = path.join(REPO, 'skills', name, 'SKILL.md');
+  const dstDir = path.join(REPO, '.agents', 'skills', name);
+  const dst = path.join(dstDir, 'SKILL.md');
+  fs.mkdirSync(dstDir, { recursive: true });
+  const raw = fs.readFileSync(src, 'utf8');
+  const m = raw.match(/^---\s*\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (!m) {
+    console.error(`  FAIL: ${name} SKILL.md has no frontmatter`);
+    process.exitCode = 1;
+    return;
+  }
+  // Codex validator allows only name, description, metadata, license, allowed-tools.
+  const allowed = ['name', 'description', 'metadata', 'license', 'allowed-tools'];
+  const kept = [];
+  let current = null;
+  for (const line of m[1].split('\n')) {
+    const top = /^([a-z][a-z0-9-]*):/.test(line) ? line.match(/^([a-z][a-z0-9-]*):/)[1] : null;
+    if (top) current = top;
+    if (current && allowed.includes(current)) kept.push(line);
+  }
+  fs.writeFileSync(dst, `---\n${kept.join('\n')}\n---\n${m[2]}`);
+  const meta = META[name];
+  fs.mkdirSync(path.join(dstDir, 'agents'), { recursive: true });
+  fs.writeFileSync(
+    path.join(dstDir, 'agents', 'openai.yaml'),
+    OPENAI_YAML(meta.display, meta.short, meta.color, meta.prompt),
+  );
+  console.log(`  codex copy: .agents/skills/${name}/ (SKILL.md + agents/openai.yaml)`);
+}
+
+for (const name of process.argv.slice(2)) {
+  console.log(`Wiring ${name}:`);
+  insertSorted(
+    path.join(REPO, 'package.json'),
+    `skills/${name}/`,
+    (e) => `"${e}"`,
+  );
+  insertSorted(
+    path.join(REPO, 'manifests/install-modules.json'),
+    `skills/${name}`,
+    (e) => `"${e}"`,
+  );
+  insertSorted(
+    path.join(REPO, 'agent.yaml'),
+    name,
+    (e) => `- ${e}`,
+  );
+  wireCodexCopy(name);
+}
+console.log('Done.');
