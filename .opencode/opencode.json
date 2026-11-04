@@ -17,9 +17,7 @@
     "skills/strategic-compact/SKILL.md",
     "skills/eval-harness/SKILL.md"
   ],
-  "plugin": [
-    "./plugins"
-  ],
+  "plugin": [],
   "skills": {
     "paths": [
       "../skills"
@@ -35,7 +33,8 @@
         "bash": true,
         "read": true,
         "changed-files": true
-      }
+      },
+      "prompt": "{file:prompts/agents/build.txt}"
     },
     "planner": {
       "description": "Expert planning specialist for complex features and refactoring. Use for implementation planning, architectural changes, or complex refactoring.",
@@ -76,9 +75,11 @@
       "prompt": "{file:prompts/agents/security-reviewer.txt}",
       "tools": {
         "read": true,
+        "grep": true,
+        "glob": true,
         "bash": true,
-        "write": true,
-        "edit": true
+        "write": false,
+        "edit": false
       }
     },
     "tdd-guide": {
@@ -192,12 +193,13 @@
       }
     },
     "docs-lookup": {
-      "description": "Documentation specialist using Context7 MCP to fetch current library and API documentation with code examples.",
+      "description": "Specialized documentation, package research, and open-source implementation specialist. Researches libraries, evaluates version trade-offs, fetches official API syntax via Context7, and finds real-world open-source examples with GitHub permalinks.",
       "mode": "subagent",
       "prompt": "{file:prompts/agents/docs-lookup.txt}",
       "tools": {
         "read": true,
-        "bash": true,
+        "grep": true,
+        "glob": true,
         "write": false,
         "edit": false
       }
@@ -320,56 +322,181 @@
         "edit": true,
         "bash": true
       }
+    },
+    "intent-gate": {
+      "description": "First-stage intent classifier. Analyzes one user message and returns a structured verdict (intent restate, type, clarity, owner-decision forks, adopted assumptions). Runs before the build agent executes substantive work so the user's prompt is confirmed before work starts.",
+      "mode": "subagent",
+      "prompt": "{file:prompts/agents/intent-gate.txt}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": false,
+        "write": false,
+        "edit": false
+      }
+    },
+    "multimodal-looker": {
+      "description": "Visual and media asset specialist. Analyzes UI screenshots, design mockups, diagrams, and PDFs to extract layout hierarchies, color tokens, typography scales, and component states.",
+      "mode": "subagent",
+      "prompt": "{file:prompts/agents/multimodal-looker.txt}",
+      "tools": {
+        "read": true,
+        "bash": false,
+        "write": false,
+        "edit": false
+      }
+    },
+    "plan-reviewer": {
+      "description": "Practical implementation plan reviewer (Momus). Verifies that plans are executable, referenced files exist on disk, and catches blocking issues.",
+      "mode": "subagent",
+      "prompt": "{file:prompts/agents/plan-reviewer.txt}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "write": false,
+        "edit": false
+      }
+    },
+    "comment-analyzer": {
+      "description": "Analyze code comments for accuracy, completeness, maintainability, and comment rot risk.",
+      "mode": "subagent",
+      "prompt": "{file:prompts/agents/comment-analyzer.txt}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "write": false,
+        "edit": false
+      }
+    },
+    "pr-test-analyzer": {
+      "description": "Review pull request test coverage quality and completeness, with emphasis on behavioral coverage and real bug prevention.",
+      "mode": "subagent",
+      "prompt": "{file:prompts/agents/pr-test-analyzer.txt}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "write": false,
+        "edit": false
+      }
+    },
+    "silent-failure-hunter": {
+      "description": "Review code for silent failures, swallowed errors, bad fallbacks, and missing error propagation.",
+      "mode": "subagent",
+      "prompt": "{file:prompts/agents/silent-failure-hunter.txt}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "write": false,
+        "edit": false
+      }
+    },
+    "type-design-analyzer": {
+      "description": "Analyze type design for encapsulation, invariant expression, usefulness, and enforcement.",
+      "mode": "subagent",
+      "prompt": "{file:prompts/agents/type-design-analyzer.txt}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "write": false,
+        "edit": false
+      }
+    },
+    "code-simplifier": {
+      "description": "Simplifies and refines code for clarity, consistency, and maintainability while preserving behavior.",
+      "mode": "subagent",
+      "prompt": "{file:prompts/agents/code-simplifier.txt}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "write": true,
+        "edit": true
+      }
+    },
+    "security-hunter": {
+      "description": "Adversarial vulnerability hunter for the /security-audit 6-phase harness. Reads source and executes PoCs only inside the Lima sandbox. Returns structured candidate results per assigned coverage unit.",
+      "mode": "subagent",
+      "prompt": "{file:prompts/agents/security-hunter.txt}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "write": false,
+        "edit": false
+      }
+    },
+    "security-verifier": {
+      "description": "Independent adversarial verifier for /security-audit. Tries to DISPROVE candidates produced by other hunters. Never the same agent instance that produced the candidate. Also runs coverage-critic passes.",
+      "mode": "subagent",
+      "prompt": "{file:prompts/agents/security-verifier.txt}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "write": false,
+        "edit": false
+      }
+    },
+    "explore": {
+      "description": "Fast agent specialized for exploring codebases. Returns actionable results with absolute paths.",
+      "mode": "subagent",
+      "prompt": "{file:prompts/agents/explore.txt}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true,
+        "write": false,
+        "edit": false
+      }
     }
   },
   "command": {
     "plan": {
       "description": "Create a detailed implementation plan for complex features",
-      "template": "{file:commands/plan.md}\n\n$ARGUMENTS",
-      "agent": "planner",
-      "subtask": true
+      "template": "{file:commands/plan.md}\n\n$ARGUMENTS"
     },
     "tdd": {
       "description": "Enforce TDD workflow with 80%+ test coverage",
-      "template": "{file:commands/tdd.md}\n\n$ARGUMENTS",
-      "agent": "tdd-guide",
-      "subtask": true
+      "template": "{file:commands/tdd.md}\n\n$ARGUMENTS"
     },
     "code-review": {
       "description": "Review code for quality, security, and maintainability",
-      "template": "{file:commands/code-review.md}\n\n$ARGUMENTS",
-      "agent": "code-reviewer",
-      "subtask": true
+      "template": "{file:commands/code-review.md}\n\n$ARGUMENTS"
     },
     "security": {
       "description": "Run comprehensive security review",
-      "template": "{file:commands/security.md}\n\n$ARGUMENTS",
-      "agent": "security-reviewer",
-      "subtask": true
+      "template": "{file:commands/security.md}\n\n$ARGUMENTS"
     },
     "build-fix": {
       "description": "Fix build and TypeScript errors with minimal changes",
-      "template": "{file:commands/build-fix.md}\n\n$ARGUMENTS",
-      "agent": "build-error-resolver",
-      "subtask": true
+      "template": "{file:commands/build-fix.md}\n\n$ARGUMENTS"
     },
     "e2e": {
       "description": "Generate and run E2E tests with Playwright",
-      "template": "{file:commands/e2e.md}\n\n$ARGUMENTS",
-      "agent": "e2e-runner",
-      "subtask": true
+      "template": "{file:commands/e2e.md}\n\n$ARGUMENTS"
     },
     "refactor-clean": {
       "description": "Remove dead code and consolidate duplicates",
-      "template": "{file:commands/refactor-clean.md}\n\n$ARGUMENTS",
-      "agent": "refactor-cleaner",
-      "subtask": true
+      "template": "{file:commands/refactor-clean.md}\n\n$ARGUMENTS"
     },
     "orchestrate": {
       "description": "Orchestrate multiple agents for complex tasks",
-      "template": "{file:commands/orchestrate.md}\n\n$ARGUMENTS",
-      "agent": "planner",
-      "subtask": true
+      "template": "{file:commands/orchestrate.md}\n\n$ARGUMENTS"
     },
     "learn": {
       "description": "Extract patterns and learnings from session",
@@ -387,23 +514,25 @@
       "description": "Run evaluation against criteria",
       "template": "{file:commands/eval.md}\n\n$ARGUMENTS"
     },
+    "deep-research": {
+      "description": "Disciplined multi-source deep research with parallel codebase exploration and source triangulation",
+      "template": "{file:commands/deep-research.md}\n\n$ARGUMENTS"
+    },
+    "build-dashboard": {
+      "description": "Orchestrate 5-phase dashboard creation from business-question framing through database inspection to 10-state design contract and implementation",
+      "template": "{file:commands/build-dashboard.md}\n\n$ARGUMENTS"
+    },
     "update-docs": {
-      "description": "Update documentation",
-      "template": "{file:commands/update-docs.md}\n\n$ARGUMENTS",
-      "agent": "doc-updater",
-      "subtask": true
+      "description": "Update documentation by dispatching explore to analyze codebase evolution, then doc-updater to stamp commit markers",
+      "template": "{file:commands/update-docs.md}\n\n$ARGUMENTS"
     },
     "update-codemaps": {
       "description": "Update codemaps",
-      "template": "{file:commands/update-codemaps.md}\n\n$ARGUMENTS",
-      "agent": "doc-updater",
-      "subtask": true
+      "template": "{file:commands/update-codemaps.md}\n\n$ARGUMENTS"
     },
     "test-coverage": {
       "description": "Analyze test coverage",
-      "template": "{file:commands/test-coverage.md}\n\n$ARGUMENTS",
-      "agent": "tdd-guide",
-      "subtask": true
+      "template": "{file:commands/test-coverage.md}\n\n$ARGUMENTS"
     },
     "setup-pm": {
       "description": "Configure package manager",
@@ -411,21 +540,15 @@
     },
     "go-review": {
       "description": "Go code review",
-      "template": "{file:commands/go-review.md}\n\n$ARGUMENTS",
-      "agent": "go-reviewer",
-      "subtask": true
+      "template": "{file:commands/go-review.md}\n\n$ARGUMENTS"
     },
     "go-test": {
       "description": "Go TDD workflow",
-      "template": "{file:commands/go-test.md}\n\n$ARGUMENTS",
-      "agent": "tdd-guide",
-      "subtask": true
+      "template": "{file:commands/go-test.md}\n\n$ARGUMENTS"
     },
     "go-build": {
       "description": "Fix Go build errors",
-      "template": "{file:commands/go-build.md}\n\n$ARGUMENTS",
-      "agent": "go-build-resolver",
-      "subtask": true
+      "template": "{file:commands/go-build.md}\n\n$ARGUMENTS"
     },
     "skill-create": {
       "description": "Generate skills from git history",
@@ -454,6 +577,22 @@
     "projects": {
       "description": "List known projects and instinct stats",
       "template": "{file:commands/projects.md}\n\n$ARGUMENTS"
+    },
+    "init-deep": {
+      "description": "Generate hierarchical AGENTS.md files (root + complexity-scored subdirectories). Asks whether AGENTS.md should be committed (pushed) or local-only, and tracks drift from the last commit snapshot.",
+      "template": "{file:commands/init-deep.md}\n\n$ARGUMENTS"
+    },
+    "security-audit": {
+      "description": "Full codebase penetration test / vulnerability discovery (Cloudflare 6-phase harness with Lima sandbox PoC execution). Distinct from /security (diff review) and /security-scan (config scan).",
+      "template": "{file:commands/security-audit.md}\n\n$ARGUMENTS"
+    },
+    "code-review-quick": {
+      "description": "Fast, focused code review with git marker tracking and scope negotiation",
+      "template": "{file:commands/code-review-quick.md}\n\n$ARGUMENTS"
+    },
+    "security-scan": {
+      "description": "Run AgentShield against agent, hook, MCP, permission, and secret config surfaces",
+      "template": "{file:commands/security-scan.md}\n\n$ARGUMENTS"
     }
   },
   "permission": {
