@@ -1,16 +1,16 @@
 {
   "coverage": {
-    "skills": 320,
+    "skills": 321,
     "withTriggers": 34
   },
-  "generatedAt": "2026-11-04T07:33:39.431Z",
+  "generatedAt": "2026-11-04T08:51:28.026Z",
   "id": "skill-triggers@1",
   "model": {
     "effort": null,
     "id": "hand-seeded",
     "source": "manual-curation-pending-regeneration"
   },
-  "registryDigest": "96893cdb94f4c9435a7e01715a10441d276cae0e990e37fac443f7b45940fad4",
+  "registryDigest": "c51ffc0ac634c0b6394aa4e227193295719d4b2d3453cb0daa5f17542f7c83cd",
   "schemaVersion": 1,
   "triggers": {
     "skill:agent-runtime-gateway-smoke-test": [

@@ -250,7 +250,11 @@ Skill memberikan pengetahuan dan metodologi yang dimuat ke dalam memori agent sa
 9. **`humanizer` & `humanizer-lint`**
    - **Fungsi**: Linter dan panduan penulisan prosa/copywriting agar tidak terkesan kaku, staged, atau menggunakan pola klise AI (menghilangkan staged openers, forced triads, klaim berlebihan).
 
-10. **Keluarga Skill Domain Bisnis** *(Vocabulary KPI untuk dashboard)*
+10. **`frontend-scaffold`** *(Baru)*
+    - **Fungsi**: Menjembatani kontrak desain beku (DESIGN.md + docs/design/ + page CONTRACT.md) menjadi skeleton frontend yang berjalan — struktur project, token ter-wire, page shells dengan 10 system state, serta routing image generation (default cloudflare-workers-ai) dan animasi (motion/react untuk in-app, Remotion untuk video file).
+    - **Kapan Aktif**: Saat implementasi frontend dimulai dari kontrak `design-contract-system`, atau saat butuh skeleton baru yang konsisten dengan design system yang sudah ada.
+
+11. **Keluarga Skill Domain Bisnis** *(Vocabulary KPI untuk dashboard)*
     - **Fungsi**: Memberi kosakata metrik bisnis nyata — definisi KPI, formula, ambang tindak, dan kesalahan interpretasi umum per domain. Dipakai `/build-dashboard` Phase 0 untuk menentukan **data apa yang layak ditampilkan**, bukan sekadar apa yang tersedia di skema.
     - **Dispatch domain** (dipakai juga sebagai tabel di `commands/build-dashboard.md` Phase 0):
       `inventory-demand-planning` (stok, reorder, safety stock, forecast accuracy) · `production-scheduling` (OEE, schedule adherence, changeover, bottleneck) · `logistics-exception-management` (exception aging, claim win rate, on-time delivery) · `carrier-relationship-management` (cost per lane, tender acceptance, carrier scorecard) · `returns-reverse-logistics` (return rate, disposition mix, recovery value) · `customs-trade-compliance` (duty savings, entry rejection, landed cost) · `quality-nonconformance` (defect PPM, CAPA closure, first-pass yield) · `energy-procurement` (load factor, demand-charge exposure, $/kWh) · `customer-billing-ops` (MRR/ARR, churn, dunning recovery) · `finance-billing-ops` (net revenue, gross margin, AR aging) · `market-research` (TAM/SAM, share of voice, win rate) · `people-analytics` (regretted attrition by cohort, time to fill, compa-ratio, pay-equity gap) · `retail-merchandising-analytics` (sell-through, GMROI, weeks of supply, markdown cadence, margin erosion) · `insurance-operations-analytics` (combined ratio, loss ratio by accident year, severity median/P90, leakage, concentration).
