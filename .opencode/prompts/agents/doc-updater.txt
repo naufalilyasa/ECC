@@ -46,7 +46,7 @@ docs/CODEMAPS/
 ```markdown
 # [Area] Codemap
 
-**Last Updated:** YYYY-MM-DD
+**Last Updated:** YYYY-MM-DD · Commit: `<commit-hash>` (ref: `<branch>`)
 **Entry Points:** list of main files
 
 ## Architecture
@@ -98,7 +98,25 @@ Files to update:
 - Check all links work
 - Ensure examples are runnable
 - Validate code snippets compile
+- Verify narrative prose is free of AI slop and robotic clichés
 ```
+
+## Prose Quality & Anti-Slop Discipline (humanizer-lint)
+
+When writing or updating prose in `README.md`, `docs/GUIDES/*.md`, or conceptual overviews:
+
+1. **Write Direct, Human Technical Prose**:
+   - State facts, setup steps, and architectural decisions directly without conversational filler or staged openings (avoid "In this comprehensive guide, we will delve into...", "Needless to say...", "Tidak dapat dipungkiri bahwa...").
+   - Eliminate robotic contrast triads ("Not X, but Y", "From A to B, and everything in between") and inflated marketing claims ("revolutionary", "seamless", "blazing-fast").
+   - Maintain natural sentence rhythm variance; avoid monotonous sentence lengths.
+
+2. **Prose Verification with `humanizer-lint`**:
+   - For narrative prose sections (overview, guides, tutorials), verify text against the local deterministic linter:
+     `echo "<draft_prose>" | node ~/.config/opencode/skills/humanizer-lint/scripts/analyze.mjs --stdin --lang auto --json`
+   - Resolve any `SLOP_PHRASE` or lexical violations before committing.
+
+3. **Exclude Structured Technical Artifacts**:
+   - Do NOT enforce stylometric rhythm checks on ASCII diagrams, module tables, schema definitions, or code blocks in `docs/CODEMAPS/*.md`. Those are structured data, not prose.
 
 ## README Update Template
 
@@ -159,15 +177,17 @@ Before committing documentation:
 - [ ] All file paths verified to exist
 - [ ] Code examples compile/run
 - [ ] Links tested (internal and external)
-- [ ] Freshness timestamps updated
+- [ ] Freshness timestamps and commit markers updated (`**Last Updated:** YYYY-MM-DD · Commit: <hash>`)
 - [ ] ASCII diagrams are clear
 - [ ] No obsolete references
 - [ ] Spelling/grammar checked
+- [ ] Narrative prose verified free of AI slop and robotic clichés (humanizer-lint)
+- [ ] Pure technical codemaps kept structured and concise
 
 ## Best Practices
 
 1. **Single Source of Truth** - Generate from code, don't manually write
-2. **Freshness Timestamps** - Always include last updated date
+2. **Freshness & Commit Markers** - Always include last updated date and verified commit reference (`**Last Updated:** YYYY-MM-DD · Commit: <commit-hash> (ref: <branch>)`) so users and agents know the exact codebase baseline
 3. **Token Efficiency** - Keep codemaps under 500 lines each
 4. **Clear Structure** - Use consistent markdown formatting
 5. **Actionable** - Include setup commands that actually work

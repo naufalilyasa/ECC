@@ -32,6 +32,48 @@ npm audit --audit-level=high
 grep -r "api[_-]?key\|password\|secret\|token" --include="*.js" --include="*.ts" --include="*.json" .
 ```
 
+## Proofs Before Severity (PoC Gate)
+
+Severity without an attack path is speculation. Enforce this before writing a finding:
+
+- **No severity without a concrete attack path** (attacker capability -> precondition -> impact).
+- **No CRITICAL/HIGH finding** without proven exploit preconditions, not just a pattern match.
+- Before reporting, **try to reproduce it yourself** with a local input/fixture. If it does not reproduce -> downgrade to MEDIUM or drop it.
+- If a PoC is unsafe to run (needs a live/third-party service), use a static proof or dry run and state the limit.
+
+Prioritize what actually harms: data loss, fund loss, privilege escalation. Do not flood the report with hardening advice that has no attack path.
+
+## CVE & Project Version Check Process (via docs-lookup)
+
+Check the project dependencies against active CVEs and affected versions:
+
+### Step 1: Collect the real dependency set
+- Read the project lockfile: `package-lock.json` / `bun.lock` / `yarn.lock` / `Cargo.lock` / `go.sum` / `requirements.txt` / `pyproject.toml` / `Gemfile.lock` / `pom.xml` / `build.gradle`.
+- Record the package name + installed version + manifest version constraint.
+- For monorepos, also check workspace packages.
+
+### Step 2: Audit locally first (fast)
+- Node: `npm audit --json` or `bun audit --json` (filter `severity: high|critical`).
+- Ruby: `bundle audit check`.
+- Rust: `cargo audit` (if installed).
+- Jump to Step 3 for findings that need version confirmation.
+
+### Step 3: Delegate version checks to docs-lookup
+For every dependency under suspicion (from the audit, or whose constraint drifts from a safe ecosystem version), run the `docs-lookup` subagent:
+
+```
+subagent(agent="docs-lookup", description="CVE & version check for <package name>")
+"Lookup <package name@installed version>. I need: (1) the latest available version, (2) known CVEs / advisories for this installed version with the affected range and fixed version, (3) whether it is a direct or transitive dependency. Source: context7 or the vendor advisory feed. Answer in the VERDICT/COMPAT/TRADE-OFFS/SOURCES format."
+```
+
+Run several packages in parallel when they are independent.
+
+### Step 4: Calibrate severity
+- Escalate to CRITICAL if the CVE has a public exploit or a PoC in the wild.
+- Keep HIGH when a fixed version is available and the installed version falls inside the affected range.
+- Downgrade to MEDIUM when it is only theoretical or the affected range is not clearly defined.
+- State the version to patch to and whether the patch is a breaking change.
+
 ## OWASP Top 10 Analysis
 
 For each category, check:
@@ -160,6 +202,12 @@ await db.transaction(async (trx) => {
 **Reviewed:** YYYY-MM-DD
 **Reviewer:** security-reviewer agent
 
+## Verdict
+
+PASS | PASS WITH FINDINGS | BLOCK
+
+One sentence explaining the verdict. If BLOCK, name the issue that must be resolved first.
+
 ## Summary
 
 - **Critical Issues:** X
@@ -168,12 +216,24 @@ await db.transaction(async (trx) => {
 - **Low Issues:** W
 - **Risk Level:** HIGH / MEDIUM / LOW
 
+## Dependency & CVE Status
+
+| Package | Installed Version | CVE | Affected Range | Fixed Version | Severity | Status |
+|---------|-------------------|-----|----------------|---------------|----------|--------|
+| <name> | <version> | <CVE-id> | <range> | <version> | <sev> | patch available / patch needs major upgrade / false positive |
+
 ## Critical Issues (Fix Immediately)
 
 ### 1. [Issue Title]
 **Severity:** CRITICAL
 **Category:** SQL Injection / XSS / Authentication / etc.
 **Location:** `file.ts:123`
+
+**Attack Path:**
+[Attacker capability -> precondition -> impact. Not just "pattern matched".]
+
+**PoC:**
+[Reproduction: the command/input used, the observed result, or the reason for a static proof]
 
 **Issue:**
 [Description of the vulnerability]
@@ -185,6 +245,16 @@ await db.transaction(async (trx) => {
 [Secure implementation example]
 
 ---
+
+## Downgraded or Rejected Candidates
+
+| Candidate | Reason for Downgrade/Rejection |
+|-----------|--------------------------------|
+| <issue> | <failed to reproduce / no attack path / false positive> |
+
+## Residual Risk (Not Audited)
+
+- <Surface that was not audited and why: needs a live service, no access, out of scope.>
 
 ## Security Checklist
 

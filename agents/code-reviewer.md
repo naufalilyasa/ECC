@@ -178,6 +178,15 @@ function processUsers(users) {
 }
 ```
 
+### Anti-AI-Slop & Tautological Tests (HIGH)
+
+Run an overfit/slop review pass over tests and production code:
+- **Tautological Tests** — Flag tests that merely verify their own mocks or mirror hardcoded constants without testing real business logic.
+- **Deletion-Only / Removal Verification Tests** — Flag tests that merely assert something was deleted or removed when no ongoing invariant is being protected.
+- **Implementation-Mirroring Tests** — Flag brittle tests that duplicate internal function implementation details instead of asserting external user-visible behavior.
+- **Spurious Production Complexity** — Flag unnecessary data normalization, redundant parsers, defensive type conversions, or speculative interfaces/factories that the task never requested.
+- **Dead & Fluff Code** — Flag unused parameters, commented-out logic, and boilerplate added "for future use".
+
 ### React/Next.js Patterns (HIGH)
 
 When reviewing React/Next.js code, also check:
