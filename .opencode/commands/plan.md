@@ -1,49 +1,46 @@
 ---
-description: Create implementation plan with risk assessment
-agent: planner
-subtask: true
+description: Create a detailed implementation plan by gathering session context and delegating to the planner subagent
+argument-hint: "[optional feature or task description]"
 ---
 
-# Plan Command
+# Plan Orchestration Command
 
-Create a detailed implementation plan for: $ARGUMENTS
+You are the Lead Orchestrator handling the `/plan` command. Your job is to bridge conversation context to the specialized `planner` subagent so planning never runs blind.
 
-## Your Task
+**User Arguments**: $ARGUMENTS
 
-1. **Restate Requirements** - Clarify what needs to be built
-2. **Identify Risks** - Surface potential issues, blockers, and dependencies
-3. **Create Step Plan** - Break down implementation into phases
-4. **Wait for Confirmation** - MUST receive user approval before proceeding
+## Orchestration Workflow
 
-## Output Format
+### 1. Context Synthesis
+Gather the working context from the active session:
+- **Core Subject**: If `$ARGUMENTS` is provided, that is your primary target. If `$ARGUMENTS` is empty, extract the active topic, feature, or bug being discussed in this session.
+- **Key Decisions & Agreements**: Summarize recent architectural choices, tech stack decisions, or constraints agreed upon with the user.
+- **Relevant Files & Paths**: List specific files modified, inspected, or referenced in recent turns.
 
-### Requirements Restatement
-[Clear, concise restatement of what will be built]
+### 2. Dispatch Planner Subagent
+Invoke the `planner` subagent with the synthesized brief:
 
-### Implementation Phases
-[Phase 1: Description]
-- Step 1.1
-- Step 1.2
-...
+```
+subagent(agent="planner", description="Plan: <feature-or-task-slug>")
+"Create an implementation plan for: <target feature/task>
 
-[Phase 2: Description]
-- Step 2.1
-- Step 2.2
-...
+## Session Context & Requirements
+<concise summary of conversation context, user preferences, and agreed architecture>
 
-### Dependencies
-[List external dependencies, APIs, services needed]
+## Target Files & Codebase Areas
+<list of relevant paths in the repo>
 
-### Risks
-- HIGH: [Critical risks that could block implementation]
-- MEDIUM: [Moderate risks to address]
-- LOW: [Minor concerns]
+## Planning Directives
+1. Follow your system prompt: announce Intent (CLEAR vs UNCLEAR).
+2. If outcome is CLEAR, ask only surviving owner-decision forks. If UNCLEAR, research and adopt best-practice defaults.
+3. Write the finalized plan to docs/plans/<slug>.plan.md.
+4. Include: Requirements, Architecture Changes, Implementation Phases with file paths, Testing Strategy (unit/integration/E2E), Risks & Mitigations, and Success Criteria.
+5. Do NOT execute or implement any code."
+```
 
-### Estimated Complexity
-[HIGH/MEDIUM/LOW with time estimates]
-
-**WAITING FOR CONFIRMATION**: Proceed with this plan? (yes/no/modify)
-
----
-
-**CRITICAL**: Do NOT write any code until the user explicitly confirms with "yes", "proceed", or similar affirmative response.
+### 3. Present & Gate
+Once the `planner` subagent returns:
+1. Present the plan overview, intent announcement, and the path to the written `.plan.md` file to the user.
+2. Direct the user to verify the plan with `plan-reviewer` (Momus) if desired.
+3. Prompt for user confirmation: "Proceed with this plan? (yes/no/modify)".
+4. Do NOT start implementation until the user explicitly confirms.

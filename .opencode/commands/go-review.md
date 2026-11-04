@@ -1,7 +1,5 @@
 ---
 description: Go code review for idiomatic patterns
-agent: go-reviewer
-subtask: true
 ---
 
 # Go Review Command

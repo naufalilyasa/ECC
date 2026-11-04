@@ -1,7 +1,5 @@
 ---
 description: Rust TDD workflow with unit and property tests
-agent: tdd-guide
-subtask: true
 ---
 
 # Rust Test Command

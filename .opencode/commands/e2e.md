@@ -1,105 +1,38 @@
 ---
-description: Generate and run E2E tests with Playwright
-agent: e2e-runner
-subtask: true
+description: Generate and run Playwright E2E tests for critical user flows by delegating to the e2e-runner subagent with session context
+argument-hint: "[user flow or route to test]"
 ---
 
-# E2E Command
+# E2E Test Orchestration Command
 
-Generate and run end-to-end tests using Playwright: $ARGUMENTS
+You are the Lead Orchestrator handling the `/e2e` command. Your job is to extract the user journey from this session and dispatch the specialized `e2e-runner` subagent to generate and run Playwright tests.
 
-## Your Task
+**User Arguments**: $ARGUMENTS
 
-1. **Analyze user flow** to test
-2. **Create test journey** with Playwright
-3. **Run tests** and capture artifacts
-4. **Report results** with screenshots/videos
+## Orchestration Workflow
 
-## Test Structure
+### 1. Context Synthesis
+- Identify the user flow or page component implemented/discussed in this session.
+- Target URL/route (e.g. `/login`, `/dashboard`, `/checkout`).
 
-```typescript
-import { test, expect } from '@playwright/test'
-
-test.describe('Feature: [Name]', () => {
-  test.beforeEach(async ({ page }) => {
-    // Setup: Navigate, authenticate, prepare state
-  })
-
-  test('should [expected behavior]', async ({ page }) => {
-    // Arrange: Set up test data
-
-    // Act: Perform user actions
-    await page.click('[data-testid="button"]')
-    await page.fill('[data-testid="input"]', 'value')
-
-    // Assert: Verify results
-    await expect(page.locator('[data-testid="result"]')).toBeVisible()
-  })
-
-  test.afterEach(async ({ page }, testInfo) => {
-    // Capture screenshot on failure
-    if (testInfo.status !== 'passed') {
-      await page.screenshot({ path: `test-results/${testInfo.title}.png` })
-    }
-  })
-})
-```
-
-## Best Practices
-
-### Selectors
-- Prefer `data-testid` attributes
-- Avoid CSS classes (they change)
-- Use semantic selectors (roles, labels)
-
-### Waits
-- Use Playwright's auto-waiting
-- Avoid `page.waitForTimeout()`
-- Use `expect().toBeVisible()` for assertions
-
-### Test Isolation
-- Each test should be independent
-- Clean up test data after
-- Don't rely on test order
-
-## Artifacts to Capture
-
-- Screenshots on failure
-- Videos for debugging
-- Trace files for detailed analysis
-- Network logs if relevant
-
-## Test Categories
-
-1. **Critical User Flows**
-   - Authentication (login, logout, signup)
-   - Core feature happy paths
-   - Payment/checkout flows
-
-2. **Edge Cases**
-   - Network failures
-   - Invalid inputs
-   - Session expiry
-
-3. **Cross-Browser**
-   - Chrome, Firefox, Safari
-   - Mobile viewports
-
-## Report Format
+### 2. Dispatch E2E-Runner Subagent
+Invoke the `e2e-runner` subagent with the user journey brief:
 
 ```
-E2E Test Results
-================
-PASS: Passed: X
-FAIL: Failed: Y
-SKIPPED: Skipped: Z
+subagent(agent="e2e-runner", description="E2E test: <flow>")
+"Generate and execute Playwright E2E tests for the following user flow:
 
-Failed Tests:
-- test-name: Error message
-  Screenshot: path/to/screenshot.png
-  Video: path/to/video.webm
+## User Journey & Target Flow
+<flow description or route from arguments/session>
+
+## Session Context
+<components, test IDs, and state transitions discussed in this session>
+
+## Testing Rules
+1. Use Page Object Model (POM) and semantic selectors (data-testid, role, text).
+2. Avoid arbitrary timeouts — use auto-wait locators and network response waits.
+3. Capture screenshots on failure and verify the test passes cleanly."
 ```
 
----
-
-**TIP**: Run with `--headed` flag for debugging: `npx playwright test --headed`
+### 3. Report to User
+Report test results, generated test file path, and artifact summary in the main conversation.

@@ -1,89 +1,40 @@
 ---
-description: Run comprehensive security review
-agent: security-reviewer
-subtask: true
+description: Run comprehensive security review with session context by delegating to the security-reviewer subagent
+argument-hint: "[optional target file or endpoint]"
 ---
 
-# Security Review Command
+# Security Review Orchestration
 
-Conduct a comprehensive security review: $ARGUMENTS
+You are the Lead Orchestrator handling the `/security` command. Your job is to gather session context (recently modified endpoints, auth logic, or sensitive data) and dispatch the specialized `security-reviewer` subagent.
 
-## Your Task
+**User Arguments**: $ARGUMENTS
 
-Analyze the specified code for security vulnerabilities following OWASP guidelines and security best practices.
+## Orchestration Workflow
 
-## Security Checklist
+### 1. Context Synthesis
+Gather the security audit target from the active session:
+- **Target Files**: If `$ARGUMENTS` names files/endpoints, use them. Otherwise, inspect `git diff --name-only HEAD` or recent changes in this session to identify modified routes, controllers, or database queries.
+- **Sensitive Surfaces**: Note any authentication flows, API handlers, environment variables, or database interactions touched in this session.
 
-### OWASP Top 10
+### 2. Dispatch Security-Reviewer Subagent
+Invoke the `security-reviewer` subagent with the synthesized brief:
 
-1. **Injection** (SQL, NoSQL, OS command, LDAP)
-   - Check for parameterized queries
-   - Verify input sanitization
-   - Review dynamic query construction
+```
+subagent(agent="security-reviewer", description="Security audit: <target>")
+"Conduct a thorough security review of the following changes and endpoints:
 
-2. **Broken Authentication**
-   - Password storage (bcrypt, argon2)
-   - Session management
-   - Multi-factor authentication
-   - Password reset flows
+## Target Files & Scope
+<list of files or git diff summary>
 
-3. **Sensitive Data Exposure**
-   - Encryption at rest and in transit
-   - Proper key management
-   - PII handling
+## Session Context
+<summary of what was built or modified in this session>
 
-4. **XML External Entities (XXE)**
-   - Disable DTD processing
-   - Input validation for XML
+## Review Directives
+1. Enforce the PoC Gate: No severity without a concrete attack path (attacker capability -> precondition -> impact).
+2. Attempt local reproduction before assigning CRITICAL/HIGH severity; downgrade speculative issues.
+3. Check dependencies against known CVEs via docs-lookup where relevant.
+4. Deliver report with Verdict (PASS | PASS WITH FINDINGS | BLOCK), Attack Paths, PoC, and Downgraded Candidates."
+```
 
-5. **Broken Access Control**
-   - Authorization checks on every endpoint
-   - Role-based access control
-   - Resource ownership validation
-
-6. **Security Misconfiguration**
-   - Default credentials removed
-   - Error handling doesn't leak info
-   - Security headers configured
-
-7. **Cross-Site Scripting (XSS)**
-   - Output encoding
-   - Content Security Policy
-   - Input sanitization
-
-8. **Insecure Deserialization**
-   - Validate serialized data
-   - Implement integrity checks
-
-9. **Using Components with Known Vulnerabilities**
-   - Run `npm audit`
-   - Check for outdated dependencies
-
-10. **Insufficient Logging & Monitoring**
-    - Security events logged
-    - No sensitive data in logs
-    - Alerting configured
-
-### Additional Checks
-
-- [ ] Secrets in code (API keys, passwords)
-- [ ] Environment variable handling
-- [ ] CORS configuration
-- [ ] Rate limiting
-- [ ] CSRF protection
-- [ ] Secure cookie flags
-
-## Report Format
-
-### Critical Issues
-[Issues that must be fixed immediately]
-
-### High Priority
-[Issues that should be fixed before release]
-
-### Recommendations
-[Security improvements to consider]
-
----
-
-**IMPORTANT**: Security issues are blockers. Do not proceed until critical issues are resolved.
+### 3. Report to User
+Present the security findings and verdict cleanly in the main conversation.

@@ -1,66 +1,42 @@
 ---
-description: Enforce TDD workflow with 80%+ coverage
-agent: tdd-guide
-subtask: true
+description: Enforce strict test-driven development by delegating to the tdd-guide subagent with session context
+argument-hint: "[feature, function, or bug to implement test-first]"
 ---
 
-# TDD Command
+# TDD Orchestration Command
 
-Implement the following using strict test-driven development: $ARGUMENTS
+You are the Lead Orchestrator handling the `/tdd` command. Your job is to gather session context and dispatch the specialized `tdd-guide` subagent to enforce the strict Red-Green-Refactor cycle.
 
-## TDD Cycle (MANDATORY)
+**User Arguments**: $ARGUMENTS
+
+## Orchestration Workflow
+
+### 1. Context Synthesis
+Gather the target specification from the active session:
+- **Target Feature/Function**: If `$ARGUMENTS` is provided, that is your target. If `$ARGUMENTS` is empty, extract the function, component, or bug just discussed in this session.
+- **Interfaces & Types**: Include any schemas, types, or data models established in recent turns.
+- **Test Runner Context**: Detect the project test runner (npm, Bun, pnpm, Vitest, Jest, pytest, cargo test) and note it.
+
+### 2. Dispatch TDD-Guide Subagent
+Invoke the `tdd-guide` subagent with the synthesized brief:
 
 ```
-RED → GREEN → REFACTOR → REPEAT
+subagent(agent="tdd-guide", description="TDD: <feature-or-function>")
+"Implement the following feature using strict Test-Driven Development (TDD):
+
+## Target Specification
+<feature or function description with inputs, outputs, and edge cases>
+
+## Session Context
+<recent context, interfaces, and constraints from this session>
+
+## Mandatory TDD Rules
+1. RED: Write the failing test FIRST and verify it fails for the right reason.
+2. GREEN: Write the minimal implementation to pass the test.
+3. REFACTOR: Improve code cleanliness while keeping all tests passing.
+4. Target 80%+ test coverage across unit and integration tests.
+5. Do not write production code without an existing failing test."
 ```
 
-1. **RED**: Write a failing test FIRST
-2. **GREEN**: Write minimal code to pass the test
-3. **REFACTOR**: Improve code while keeping tests green
-4. **REPEAT**: Continue until feature complete
-
-## Your Task
-
-### Step 1: Define Interfaces (SCAFFOLD)
-- Define TypeScript interfaces for inputs/outputs
-- Create function signature with `throw new Error('Not implemented')`
-
-### Step 2: Write Failing Tests (RED)
-- Write tests that exercise the interface
-- Include happy path, edge cases, and error conditions
-- Run tests - verify they FAIL
-
-### Step 3: Implement Minimal Code (GREEN)
-- Write just enough code to make tests pass
-- No premature optimization
-- Run tests - verify they PASS
-
-### Step 4: Refactor (IMPROVE)
-- Extract constants, improve naming
-- Remove duplication
-- Run tests - verify they still PASS
-
-### Step 5: Check Coverage
-- Target: 80% minimum
-- 100% for critical business logic
-- Add more tests if needed
-
-## Coverage Requirements
-
-| Code Type | Minimum |
-|-----------|---------|
-| Standard code | 80% |
-| Financial calculations | 100% |
-| Authentication logic | 100% |
-| Security-critical code | 100% |
-
-## Test Types to Include
-
-- **Unit Tests**: Individual functions
-- **Edge Cases**: Empty, null, max values, boundaries
-- **Error Conditions**: Invalid inputs, network failures
-- **Integration Tests**: API endpoints, database operations
-
----
-
-**MANDATORY**: Tests must be written BEFORE implementation. Never skip the RED phase.
+### 3. Report to User
+Present the test results, created test files, implementation summary, and coverage stats in the main conversation.

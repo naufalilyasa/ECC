@@ -1,7 +1,5 @@
 ---
 description: Go TDD workflow with table-driven tests
-agent: tdd-guide
-subtask: true
 ---
 
 # Go Test Command

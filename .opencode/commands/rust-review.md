@@ -1,7 +1,5 @@
 ---
 description: Rust code review for ownership, safety, and idiomatic patterns
-agent: rust-reviewer
-subtask: true
 ---
 
 # Rust Review Command

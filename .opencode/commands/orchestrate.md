@@ -1,7 +1,5 @@
 ---
 description: Orchestrate multiple agents for complex tasks
-agent: planner
-subtask: true
 ---
 
 # Orchestrate Command
