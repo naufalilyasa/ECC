@@ -88,6 +88,27 @@ Links to other codemaps
 2. **Update** — README.md, docs/GUIDES/*.md, package.json, API docs
 3. **Validate** — Verify files exist, links work, examples run, snippets compile
 
+## Prose Quality & Language
+
+1. **Rewrite with `humanizer`** — before finishing narrative prose (overview,
+   guides, tutorials), run the `humanizer` skill on the draft so it reads like a
+   person wrote it. It changes voice only, never facts.
+2. **Verify with `humanizer-lint`** — gate the rewritten prose through the
+   deterministic linter and resolve every violation:
+
+   ```bash
+   echo "<draft_prose>" | node ~/.config/opencode/skills/humanizer-lint/scripts/analyze.mjs --stdin --lang auto --json
+   ```
+
+3. **Technical text stays English** — write canonical technical doc prose in
+   English. Never translate code identifiers, CLI commands, flags, file paths,
+   API names, error strings, config keys, or domain terms; a translated
+   identifier is wrong, not localized. Narrative prose around them follows the
+   doc's own existing language. `docs/<lang>/` translations are out of scope.
+4. **Exclude structured artifacts** — no stylometric checks on ASCII diagrams,
+   module tables, schema definitions, or code blocks; those are structured
+   data, not prose.
+
 ## Key Principles
 
 1. **Single Source of Truth** — Generate from code, don't manually write
@@ -104,6 +125,8 @@ Links to other codemaps
 - [ ] Links tested
 - [ ] Freshness timestamps updated
 - [ ] No obsolete references
+- [ ] Narrative prose rewritten with `humanizer` and clean under `humanizer-lint`
+- [ ] Technical terms, identifiers, and commands left in English
 
 ## When to Update
 

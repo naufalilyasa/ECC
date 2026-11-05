@@ -80,9 +80,32 @@ Skipped:  docs/API.md (no changes detected)
 ──────────────────────────────
 ```
 
+## Prose Quality & Language
+
+1. **Rewrite with `humanizer`** — before finishing narrative prose (overview,
+   guides, tutorials), run the `humanizer` skill on the draft so it reads like a
+   person wrote it. It changes voice only, never facts.
+2. **Verify with `humanizer-lint`** — gate the rewritten prose through the
+   deterministic linter and resolve every violation:
+
+   ```bash
+   echo "<draft_prose>" | node ~/.config/opencode/skills/humanizer-lint/scripts/analyze.mjs --stdin --lang auto --json
+   ```
+
+3. **Technical text stays English** — write canonical technical doc prose in
+   English. Never translate code identifiers, CLI commands, flags, file paths,
+   API names, error strings, config keys, or domain terms; a translated
+   identifier is wrong, not localized. Narrative prose around them follows the
+   doc's own existing language. `docs/<lang>/` translations are out of scope.
+4. **Exclude structured artifacts** — no stylometric checks on ASCII diagrams,
+   module tables, schema definitions, or code blocks; those are structured
+   data, not prose.
+
 ## Rules
 
 - **Single source of truth**: Always generate from code, never manually edit generated sections
 - **Preserve manual sections**: Only update generated sections; leave hand-written prose intact
 - **Mark generated content**: Use `<!-- AUTO-GENERATED -->` markers around generated sections
 - **Don't create docs unprompted**: Only create new doc files if the command explicitly requests it
+- **Prose discipline**: Narrative prose goes through `humanizer` then `humanizer-lint`; structured artifacts are exempt
+- **English technical text**: Identifiers, commands, paths, API names, and error strings stay in English

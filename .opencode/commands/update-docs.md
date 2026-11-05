@@ -64,8 +64,11 @@ subagent(agent="doc-updater", description="Update docs at <CURRENT_COMMIT>")
 ## Documentation Directives
 1. Stamp the exact visible header marker: `**Last Updated:** <CURRENT_DATE> · Commit: `<CURRENT_COMMIT>` (ref: `<CURRENT_BRANCH>`)` at the top of updated docs.
 2. Update README.md, codemaps, or guides to match the code changes discovered by explore.
-3. Follow the Prose Quality (humanizer-lint) discipline: write direct, non-robotic prose for narrative guides, avoiding AI slop phrases.
-4. Keep technical codemaps structured, tabular, and concise."
+3. Prose Quality (humanizer + humanizer-lint): rewrite narrative prose with the `humanizer` skill, then gate it through the deterministic linter and resolve every violation:
+   `echo "<draft_prose>" | node ~/.config/opencode/skills/humanizer-lint/scripts/analyze.mjs --stdin --lang auto --json`
+   Exempt ASCII diagrams, module tables, schema definitions, and code blocks — structured data, not prose.
+4. Technical text stays English: write canonical technical doc prose in English and never translate code identifiers, CLI commands, flags, file paths, API names, error strings, or config keys. `docs/<lang>/` translations are out of scope.
+5. Keep technical codemaps structured, tabular, and concise."
 ```
 
 ### 4. Record Sync Marker & Report

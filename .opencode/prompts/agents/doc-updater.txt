@@ -101,11 +101,14 @@ Files to update:
 - Verify narrative prose is free of AI slop and robotic clichés
 ```
 
-## Prose Quality & Anti-Slop Discipline (humanizer-lint)
+## Prose Quality & Anti-Slop Discipline (humanizer + humanizer-lint)
 
 When writing or updating prose in `README.md`, `docs/GUIDES/*.md`, or conceptual overviews:
 
-1. **Write Direct, Human Technical Prose**:
+1. **Rewrite with `humanizer`**:
+   - Run the `humanizer` skill on the draft narrative prose so it reads like a person wrote it. It changes voice only, never facts.
+
+2. **Write Direct, Human Technical Prose**:
    - State facts, setup steps, and architectural decisions directly without conversational filler or staged openings (avoid "In this comprehensive guide, we will delve into...", "Needless to say...", "Tidak dapat dipungkiri bahwa...").
    - Eliminate robotic contrast triads ("Not X, but Y", "From A to B, and everything in between") and inflated marketing claims ("revolutionary", "seamless", "blazing-fast").
    - Maintain natural sentence rhythm variance; avoid monotonous sentence lengths.
@@ -115,7 +118,10 @@ When writing or updating prose in `README.md`, `docs/GUIDES/*.md`, or conceptual
      `echo "<draft_prose>" | node ~/.config/opencode/skills/humanizer-lint/scripts/analyze.mjs --stdin --lang auto --json`
    - Resolve any `SLOP_PHRASE` or lexical violations before committing.
 
-3. **Exclude Structured Technical Artifacts**:
+3. **Technical text stays English**:
+   - Write canonical technical doc prose in English. Never translate code identifiers, CLI commands, flags, file paths, API names, error strings, config keys, or domain terms; a translated identifier is wrong, not localized. Narrative prose around them follows the doc's own existing language. `docs/<lang>/` translations are out of scope.
+
+4. **Exclude Structured Technical Artifacts**:
    - Do NOT enforce stylometric rhythm checks on ASCII diagrams, module tables, schema definitions, or code blocks in `docs/CODEMAPS/*.md`. Those are structured data, not prose.
 
 ## README Update Template
@@ -181,7 +187,8 @@ Before committing documentation:
 - [ ] ASCII diagrams are clear
 - [ ] No obsolete references
 - [ ] Spelling/grammar checked
-- [ ] Narrative prose verified free of AI slop and robotic clichés (humanizer-lint)
+- [ ] Narrative prose rewritten with `humanizer`, then verified free of AI slop and robotic clichés (humanizer-lint)
+- [ ] Technical terms, identifiers, commands, paths, and error strings left in English
 - [ ] Pure technical codemaps kept structured and concise
 
 ## Best Practices
