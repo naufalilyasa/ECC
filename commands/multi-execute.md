@@ -67,7 +67,7 @@ ROLE_FILE: <role prompt path>
 <TASK>
 Scope: Audit the final code changes.
 Inputs:
-- The applied patch (git diff / final unified diff)
+- The applied patch (final unified diff, or the run's changed-file record — no git required)
 - The touched files (relevant excerpts if needed)
 Constraints:
 - Do NOT modify any files.

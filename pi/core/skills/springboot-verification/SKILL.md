@@ -195,10 +195,8 @@ mvn spotless:apply   # if using Spotless plugin
 
 ## Phase 6: Diff Review
 
-```bash
-git diff --stat
-git diff
-```
+No git required. List the files you changed in this run from your own edit
+history (or the run's workflow record) and read them directly.
 
 Checklist:
 - No debugging logs left (`System.out`, `log.debug` without guards)

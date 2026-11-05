@@ -32,9 +32,7 @@ Create a snapshot of current progress including:
 - Errors: [if any]
 
 **Changes Since Last Checkpoint**
-```
-git diff --stat [last-checkpoint-commit]
-```
+- [files you edited since the previous checkpoint, from your own edit history — no git required]
 
 **Completed Tasks**
 - [x] Task 1
@@ -59,7 +57,7 @@ Checkpoints integrate with the verification loop:
 Use checkpoints to:
 - Save state before risky changes
 - Track progress through phases
-- Enable rollback if needed
+- Compare against a known-good state if needed
 - Document verification points
 
 ---

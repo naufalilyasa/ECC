@@ -19,7 +19,7 @@ Capture everything that happened in this session — what was built, what worked
 
 Before writing the file, collect:
 
-- Read all files modified during this session (use git diff or recall from conversation)
+- Read all files modified during this session (recall from conversation, or read the run's changed-file record — no git required)
 - Review what was discussed, attempted, and decided
 - Note any errors encountered and how they were resolved (or not)
 - Check current test/build status if relevant

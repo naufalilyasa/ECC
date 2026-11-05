@@ -15,23 +15,25 @@ Create or verify a checkpoint in your workflow.
 When creating a checkpoint:
 
 1. Run `/verify quick` to ensure current state is clean
-2. Create a git stash or commit with checkpoint name
-3. Log checkpoint to `.claude/checkpoints.log`:
+2. Append the checkpoint to the markdown record `.claude/checkpoints.md`
+   (create it with a header row if it does not exist yet):
 
 ```bash
-echo "$(date +%Y-%m-%d-%H:%M) | $CHECKPOINT_NAME | $(git rev-parse --short HEAD)" >> .claude/checkpoints.log
+mkdir -p .claude
+[ -f .claude/checkpoints.md ] || printf '| Timestamp | Name | Tests | Coverage | Build |\n|---|---|---|---|---|\n' >> .claude/checkpoints.md
+echo "| $(date +%Y-%m-%d-%H:%M) | $CHECKPOINT_NAME | X/Y passed | XX% | PASS/FAIL |" >> .claude/checkpoints.md
 ```
 
-4. Report checkpoint created
+3. Report checkpoint created
 
 ## Verify Checkpoint
 
 When verifying against a checkpoint:
 
-1. Read checkpoint from log
-2. Compare current state to checkpoint:
-   - Files added since checkpoint
-   - Files modified since checkpoint
+1. Read the checkpoint row from `.claude/checkpoints.md`
+2. Compare current state to the recorded checkpoint:
+   - Files changed since the checkpoint (from your own edit history since that
+     timestamp — no git required)
    - Test pass rate now vs then
    - Coverage now vs then
 
@@ -47,11 +49,11 @@ Build: [PASS/FAIL]
 
 ## List Checkpoints
 
-Show all checkpoints with:
+Show all checkpoints from `.claude/checkpoints.md` with:
 - Name
 - Timestamp
-- Git SHA
-- Status (current, behind, ahead)
+- Recorded tests / coverage / build
+- Status (current, superseded)
 
 ## Workflow
 

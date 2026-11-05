@@ -76,11 +76,11 @@ grep -rn "console.log" --include="*.ts" --include="*.tsx" src/ 2>/dev/null | hea
 ```
 
 ### Phase 6: Diff Review
-```bash
-# Show what changed
-git diff --stat
-git diff HEAD~1 --name-only
-```
+
+No git required. List the files you changed in this run from your own edit
+history (the Edit/Write calls you made), or read them from the run's workflow
+record if one exists. Do not fall back to `git diff` — a project without git
+must be able to run this phase.
 
 Review each changed file for:
 - Unintended changes

@@ -255,21 +255,15 @@ python -c "import json; json.load(open('schema.json'))"
 
 ## Phase 12: Diff Review
 
+No git required. List the files you changed in this run from your own edit
+history (or the run's workflow record), then scan those files directly:
+
 ```bash
-# Show diff statistics
-git diff --stat
-
-# Show actual changes
-git diff
-
-# Show changed files
-git diff --name-only
-
-# Check for common issues
-git diff | grep -i "todo\|fixme\|hack\|xxx"
-git diff | grep "print("  # Debug statements
-git diff | grep "DEBUG = True"  # Debug mode
-git diff | grep "import pdb"  # Debugger
+# Scan the recorded changed-file list for common issues
+grep -rniE "todo|fixme|hack|xxx" <changed files>
+grep -rn "print(" <changed files>        # Debug statements
+grep -rn "DEBUG = True" <changed files>  # Debug mode
+grep -rn "import pdb" <changed files>    # Debugger
 ```
 
 Checklist:
@@ -465,6 +459,6 @@ jobs:
 | Security | `pip-audit && bandit -r .` |
 | Django check | `python manage.py check --deploy` |
 | Collectstatic | `python manage.py collectstatic --noinput` |
-| Diff stats | `git diff --stat` |
+| Changed files | this run's recorded changed-file list (no git required) |
 
 Remember: Automated verification catches common issues but doesn't replace manual code review and testing in staging environment.

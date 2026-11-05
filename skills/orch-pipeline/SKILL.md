@@ -1,6 +1,6 @@
 ---
 name: orch-pipeline
-description: Shared orchestration engine behind the orch-* skill family — the gated Research-Plan-TDD-Review-Commit pipeline, size classifier, agent and command map, and two human gates (plan approval, commit confirmation) that orch-* operation skills delegate to. Use indirectly via orch-add-feature, orch-fix-defect, orch-change-feature, orch-refine-code, or orch-build-mvp; read directly only when adding an orch operation or tuning shared phases.
+description: Shared orchestration engine behind the orch-* skill family — the gated Research-Plan-TDD-Review-Record pipeline, size classifier, agent and command map, and two human gates (plan approval, record confirmation) that orch-* operation skills delegate to. Use indirectly via orch-add-feature, orch-fix-defect, orch-change-feature, orch-refine-code, or orch-build-mvp; read directly only when adding an orch operation or tuning shared phases.
 metadata:
   origin: ECC
 ---
@@ -70,8 +70,9 @@ Each phase delegates — it does not do the work inline.
   red → green → refactor. Honor the operation's first-move rule.
 - **5. Review** — `code-reviewer` agent / `/code-review`. Add `security-reviewer`
   whenever the diff touches a security trigger (below).
-- **6. Commit** — conventional commits (`feat:` / `fix:` / `refactor:` / …), one
-  per logical chunk. → **GATE 2.**
+- **6. Record** — write the pipeline record under the repo's `docs/`
+  (see below). Conventional commit messages are drafted inside the record for
+  the user to apply if the project is a git repo. → **GATE 2.**
 
 ## The two gates
 
@@ -79,8 +80,9 @@ This family is **gated, not autonomous**:
 
 1. **GATE 1 — after Plan.** Present the `task_list`; do not write implementation
    code until the user approves.
-2. **GATE 2 — before Commit.** Present the diff summary and proposed messages;
-   do not commit until the user confirms.
+2. **GATE 2 — before Commit.** Present the pipeline record and the proposed
+   commit messages. Do not run `git commit` until the user confirms; the record
+   is complete and authoritative without it, so non-git projects finish here.
 
 Everything between the gates flows without stopping.
 
@@ -111,11 +113,18 @@ The pipeline carries no hidden state — the planning docs *are* the handoff:
 - Larger work may also emit PRD / architecture / system_design under the repo's
   `docs/` per `rules/common/development-workflow.md`.
 - Review findings (CRITICAL / HIGH) must be resolved before Gate 2.
+- The Phase 6 record lives at `docs/<task-name>.pipeline.md` and carries:
+  per-task status from the `task_list`, the RED/GREEN excerpts from each task's
+  TDD record, the review verdict, and the list of files changed in this run
+  (from the agent's own edit history — no git required). Proposed conventional
+  commit messages are drafted at the bottom for the user to apply.
 
 ## Verification
 
 - size tier was stated and matched the work
-- Gate 1 (plan) and Gate 2 (commit) were both honored
+- Gate 1 (plan) and Gate 2 (record) were both honored
 - `security-reviewer` ran iff a security trigger was touched
-- commits are conventional and scoped to one logical change
+- the pipeline record exists with per-task status, RED/GREEN evidence, and the
+  review verdict; any commit the user applied is conventional and scoped to one
+  logical change
 - new / changed behavior has tests; coverage ≥ 80% per `rules/common/testing.md`

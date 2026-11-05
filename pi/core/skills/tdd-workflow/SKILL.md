@@ -69,19 +69,37 @@ ALWAYS write tests first, then implement code to make tests pass.
 - Browser automation
 - UI interactions
 
-### 4. Git Checkpoints
-- If the repository is under Git, create a checkpoint commit after each TDD stage
-- Do not squash or rewrite these checkpoint commits until the workflow is complete
-- Each checkpoint commit message must describe the stage and the exact evidence captured
-- Count only commits created on the current active branch for the current task
-- Do not treat commits from other branches, earlier unrelated work, or distant branch history as valid checkpoint evidence
-- Before treating a checkpoint as satisfied, verify that the commit is reachable from the current `HEAD` on the active branch and belongs to the current task sequence
-- The preferred compact workflow is:
-  - one commit for failing test added and RED validated
-  - one commit for minimal fix applied and GREEN validated
-  - one optional commit for refactor complete
-- Separate evidence-only commits are not required if the test commit clearly corresponds to RED and the fix commit clearly corresponds to GREEN
-- Squash merges are allowed only after the workflow evidence has been preserved in Step 8. If checkpoint commits will be squashed, copy the RED/GREEN/refactor summary into the PR body, squash commit body, or evidence report so reviewers can still answer what was verified and how.
+### 4. Markdown Checkpoints (the record)
+
+Checkpoints are recorded in a markdown file, never in git commits. This works
+in any project, git or not.
+
+- Open the TDD record at the first checkpoint (RED) using the Step 8 path
+  convention (`docs/releases/<version>/<plan-or-task-name>.tdd.md`,
+  `.github/tdd/<plan-or-task-name>.tdd.md`, or
+  `.claude/tdd/<plan-or-task-name>.tdd.md`).
+- Append one entry per stage. Each entry states the stage, the exact validation
+  command run, and the result excerpt (RED: the failing assertion; GREEN: the
+  passing run).
+- The record is the canonical evidence. Never treat work from another session,
+  another branch, or an earlier unrelated task as this run's evidence.
+- Preferred compact sequence:
+  - `RED` — failing test added and executed; failure caused by the intended bug
+  - `GREEN` — minimal fix applied; same test target rerun and passed
+  - `REFACTOR` (optional) — structure changed; tests still green
+- Step 8 turns these entries into the finished evidence report. Do not keep a
+  second, conflicting copy of the same evidence.
+
+Checkpoint entry format:
+
+```markdown
+## Checkpoint log
+
+| Stage | Command | Result | Notes |
+|-------|---------|--------|-------|
+| RED | `npm test -- search.test.ts` | FAIL: expected `[]`, got `[item]` | reproducer for empty-query bug |
+| GREEN | `npm test -- search.test.ts` | PASS (3 tests) | minimal fix in `searchMarkets` |
+```
 
 ## TDD Workflow Steps
 
@@ -178,11 +196,8 @@ A test that was only written but not compiled and executed does not count as RED
 
 Do not edit production code until this RED state is confirmed.
 
-If the repository is under Git, create a checkpoint commit immediately after this stage is validated.
-Recommended commit message format:
-- `test: add reproducer for <feature or bug>`
-- This commit may also serve as the RED validation checkpoint if the reproducer was compiled and executed and failed for the intended reason
-- Verify that this checkpoint commit is on the current active branch before continuing
+Append the RED entry to the TDD record: the failing test file, the exact
+command, and the failure excerpt proving it failed for the intended reason.
 
 ### Step 4: Implement Code
 Write minimal code to make tests pass:
@@ -194,7 +209,8 @@ export async function searchMarkets(query: string) {
 }
 ```
 
-If the repository is under Git, stage the minimal fix now but defer the checkpoint commit until GREEN is validated in Step 5.
+Do not record GREEN yet. The GREEN entry is written only after Step 5 reruns
+the same test target and it passes.
 
 ### Step 5: Run Tests Again
 ```bash
@@ -206,11 +222,8 @@ Rerun the same relevant test target after the fix and confirm the previously fai
 
 Only after a valid GREEN result may you proceed to refactor.
 
-If the repository is under Git, create a checkpoint commit immediately after GREEN is validated.
-Recommended commit message format:
-- `fix: <feature or bug>`
-- The fix commit may also serve as the GREEN validation checkpoint if the same relevant test target was rerun and passed
-- Verify that this checkpoint commit is on the current active branch before continuing
+Append the GREEN entry to the TDD record: the same command rerun and its
+passing output.
 
 ### Step 6: Refactor
 Improve code quality while keeping tests green:
@@ -219,10 +232,8 @@ Improve code quality while keeping tests green:
 - Optimize performance
 - Enhance readability
 
-If the repository is under Git, create a checkpoint commit immediately after refactoring is complete and tests remain green.
-Recommended commit message format:
-- `refactor: clean up after <feature or bug> implementation`
-- Verify that this checkpoint commit is on the current active branch before considering the TDD cycle complete
+Append the REFACTOR entry to the TDD record and confirm the test target is
+still green.
 
 ### Step 7: Verify Coverage
 ```bash
@@ -263,7 +274,7 @@ If the repository already uses Claude-specific local artifacts, the `.claude/tdd
 ```
 
 5. **Coverage and known gaps** - include the coverage command/result when available and explain any intentional gaps, skipped tests, or untested follow-ups.
-6. **Merge evidence** - if checkpoint commits will be squashed, copy the final RED/GREEN/refactor summary here and into the PR body or squash commit body.
+6. **Merge evidence** - the checkpoint log above is the merge evidence. Copy its RED/GREEN/refactor summary into the PR body when the project uses PRs; the record itself is authoritative either way.
 
 Keep the report factual. Quote actual commands and outcomes; do not invent PASS results for tests that were not run.
 
