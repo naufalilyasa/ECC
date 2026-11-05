@@ -41,6 +41,7 @@ read-only input; this skill generates code, it does not redesign.
 ### Phase 0 — Read the Contract
 
 Read `DESIGN.md`, then the page contract. Extract:
+- Composition Spec (Section 5) — the measured per-section layout, alignment, typography, and behavior targets. Phase 5 verifies the render against these; they are not optional decoration.
 - Component-to-token binding table (Section 3) — what to generate
 - State matrix (Section 4) — which of the 10 states are in-scope vs `OUT_OF_SCOPE`
 - Authorized roles and responsive breakpoints (1440 / 768 / 375)
@@ -165,6 +166,13 @@ Rules for this file:
 Then verify every in-scope state from the contract's Section 4 has a component,
 and every generated component consumes tokens (no raw colors anywhere).
 
+**Composition fidelity gate (separate layer, not optional).** The audit file above
+proves token compliance; it says nothing about whether the page looks like the
+reference. Run `references/fidelity-checklist.md`: dev server, capture at
+1440 / 768 / 375, dispatch `multimodal-looker` with the reference plus the screenshots
+against the contract's Section 5, and record PASS / FAIL per section row. Fix the
+render, not the checklist. This gate is a measured checklist, never a pixel diff.
+
 The canonical `design-contract-system` Phase 4 greps (hex / radius / spacing)
 remain valid as a quick manual pre-check, but the file above is the enforced
 gate — greps on a staged diff are not.
@@ -177,6 +185,7 @@ gate — greps on a staged diff are not.
 - **Contract drift**: regenerating a page by hand after the contract changed — re-scaffold from the contract
 - **Skipping the audit gate**: the canonical audit file exists because hex/radius/spacing violations are invisible in review screenshots
 - **Writing your own audit test** (self-approval): a hand-rolled test that whitelists the output it was meant to check — the observed real-world failure. Only the canonical audit file (Phase 5), contract-owned, with the self-check test
+- **Token-green, composition-drift**: treating a passing token audit as visual fidelity — the observed real-world failure (8 composition complaints under a 19/19 green token audit).
 - **Treating the image tool as production storage**: generated images must land in the repo
 
 ## Related Skills

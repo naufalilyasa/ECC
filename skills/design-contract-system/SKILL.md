@@ -36,7 +36,7 @@ Extract, modularize, and enforce production-grade frontend design contracts from
 [Visual Reference: Screenshot / HTML]
                  │
                  ▼
-   Phase 1: Ingest & Extract DNA  <── (multimodal-looker for images / DOM parsing for HTML)
+   Phase 1: Ingest & Extract DNA + Composition  <── (multimodal-looker for images / DOM parsing for HTML)
                  │
                  ▼
    Phase 2: Scaffold System Core  ──→ (root DESIGN.md + 6 docs/design/*.md + globals.css)
@@ -62,7 +62,13 @@ Extract, modularize, and enforce production-grade frontend design contracts from
    5. Interactive states visible.
    Format as structured markdown with estimated hex codes and functional roles."
    ```
-2. **If given an HTML / CSS Export**:
+2. **Extract the Composition Spec, not only tokens**:
+   Token extraction alone produces contracts that pass audit while drifting from the
+   reference. Run `references/composition-extraction.md` over the same image: per-section
+   grid structure, alignment, asymmetry ratio, scroll/floating behavior, per-element
+   typography (size + weight), image treatment, and the image-gen prompt spec for every
+   asset the reference shows. Output lands in the page contract's Section 5.
+3. **If given an HTML / CSS Export**:
    Inspect `:root`, `@theme`, and utility classes to harvest unique backgrounds, typography hierarchies, borders, and interaction states. See `references/visual-extraction.md`.
 
 ### Phase 2: Scaffold System Core Files

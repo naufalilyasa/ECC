@@ -27,3 +27,22 @@ These rules eliminate generic, amateurish AI-generated design patterns ("AI slop
 7. **Typewriter Monospace for Business Numbers**:
    - *Banned*: Using generic monospace for sales totals or financial KPI numbers.
    - *Approved*: Sans font with OpenType `tabular-nums` for all calculable metrics; Monospace exclusively for technical codes, serials, and SKUs.
+
+---
+
+## 2. Composition Rules (adapted from stitch taste-design)
+
+1. **No three-equal-cards row**: the default AI grid. Every row of 3+ cards must carry
+   at least one asymmetric span, or the contract must state why the content is genuinely
+   homogeneous. Reference-faithful asymmetry beats symmetrical tidiness.
+2. **Single column below 768px**: every multi-column composition collapses to one column
+   at 375px. Horizontal scroll tracks are mobile-forbidden unless the reference defines one.
+3. **Hero fills a viewport**: use the framework viewport-height utility (`min-h-dvh` in
+   Tailwind v4). The arbitrary-bracket form `min-h-[100dvh]` is banned — the geometry
+   audit flags every `min-h-[`, and whitelisting it would weaken the rule.
+4. **Touch targets**: 44px minimum on mobile — already specified in
+   `templates/standards.md` §3. Cite it; do not restate values here.
+
+**Precedence**: when the reference itself violates a rule above, the render follows the
+reference and the page contract records an explicit exception with the exact value
+(feeding the Phase 5 whitelist). A rule never loses silently.

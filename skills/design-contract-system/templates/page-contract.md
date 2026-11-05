@@ -16,6 +16,8 @@
 - **Tablet Grid (768px - 1024px)**: [e.g. 2-column stacked layout]
 - **Mobile Grid (375px - 640px)**: [e.g. 1-column linear vertical scroll, fixed bottom CTA or drawer]
 
+> Measured per-section composition lives in Section 5; this grid summary is derived from it. Section 5 is the authority.
+
 ---
 
 ## 3. Component Hierarchy & Semantic Tokens
@@ -45,3 +47,35 @@ Every view must explicitly verify its 10 states:
 - [ ] **8. Session Expired**: Re-auth modal pops without discarding view inputs.
 - [ ] **9. Form Validation**: Field errors positioned directly under inputs with `text-danger-fg`.
 - [ ] **10. Success State**: Action confirmation toast appears with auto-dismiss.
+
+---
+
+## 5. Composition Spec (measured from the visual reference)
+
+Filled by `design-contract-system` Phase 1 via `references/composition-extraction.md`.
+Numbers, not adjectives. `UNMEASURED` stops the handoff for that field — ask the
+contract owner, never invent. Verified by `frontend-scaffold` Phase 5.
+
+### 5.1 Per-Section Layout & Alignment
+| Section | Container | Grid / Span Ratio | Alignment | Notes |
+|---|---|---|---|---|
+| `Topbar` | `max-w-7xl px-6` | 3 zones: nav / center logo / actions | logo center, actions right | floating, glass |
+
+### 5.2 Measured Typography
+| Element | Family role | Size (px) | Weight | Line-height | Tracking | Transform |
+|---|---|---|---|---|---|---|
+| `HeroH1` | `font-sans` | 64 | 700 | 1.1 | -0.02em | none |
+
+### 5.3 Behavior & Motion
+| Section | Position | Scroll behavior | Z tier | Material | Motion |
+|---|---|---|---|---|---|
+| `Topbar` | fixed | none | `z-20` | liquid glass | fade-in on load |
+
+### 5.4 Image Asset List
+| Asset ID | Section | Treatment | Aspect | Model | Prompt | Saved path | Status |
+|---|---|---|---|---|---|---|---|
+| `hero-bg` | Hero | full-bleed + scrim | 16:9 | `@cf/black-forest-labs/flux-2-klein-9b` | <prompt> | `public/assets/hero-bg.webp` | pending |
+
+### 5.5 Fidelity Checklist (filled by frontend-scaffold Phase 5)
+- [ ] `Topbar` — 3-zone grid, center logo, glass material, `z-20`
+- [ ] …
