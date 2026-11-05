@@ -189,10 +189,12 @@ export function BadStatCard({ title, value }: StatCardProps) {
 - When adding a new view, draft its page contract first; code review checks the implementation against that contract.
 - Keep the number of radius tiers strictly at 3 (`8px`, `12px`, `16px`) plus capsule badges (`rounded-full`).
 - Re-verify dark mode contrast whenever an accent or surface token is tweaked.
+- Name the consuming skill in implementation plans: write "execute under `frontend-scaffold`" when the plan implements a frozen contract. A skill cannot force the harness to load it — an agent working from the plan alone skips the consumer's audit gate (observed failure: 14 contract violations shipped under a green suite).
 
 ## Related Skills
 
 - `frontend-patterns`: Component composition, React hooks, and rendering best practices.
+- `frontend-scaffold`: Downstream consumer — turns a frozen contract from this skill into a running skeleton with the audit gate.
 - `a11y`: Accessibility standards, WCAG 2.2 Level AA contrast, and screen-reader semantics.
 - `design-system`: Auditing existing CSS codebases for consistency.
 - `frontend-design-direction`: High-level aesthetic direction and typography curation.

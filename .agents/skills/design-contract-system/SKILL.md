@@ -1,9 +1,7 @@
 ---
 name: design-contract-system
-description: "Extract and generate a complete, modular, anti-slop design contract system from visual mockups, screenshots, or HTML exports. Produces root DESIGN.md routing, docs/design/ specifications (BRAND, STANDARDS, THEME, TOKEN-MAP, TYPOGRAPHY-MAP, STATES-MATRIX), and per-page CONTRACT.md files with 10 mandatory system states and Tailwind/CSS variables. Use when starting a new frontend UI, extracting design systems from visual references or AI mockups (v0, Lovable, Stitch), or standardizing UI consistency."
+description: Extract and generate a complete, modular, anti-slop design contract system from visual mockups, screenshots, or HTML exports. Produces root DESIGN.md routing, docs/design/ specifications (BRAND, STANDARDS, THEME, TOKEN-MAP, TYPOGRAPHY-MAP, STATES-MATRIX), and per-page CONTRACT.md files with 10 mandatory system states and Tailwind/CSS variables. Use when starting a new frontend UI, extracting design systems from visual references or AI mockups (v0, Lovable, Stitch), or standardizing UI consistency.
 license: MIT
-metadata:
-  origin: ECC
 ---
 
 # Design Contract System
@@ -190,10 +188,12 @@ export function BadStatCard({ title, value }: StatCardProps) {
 - When adding a new view, draft its page contract first; code review checks the implementation against that contract.
 - Keep the number of radius tiers strictly at 3 (`8px`, `12px`, `16px`) plus capsule badges (`rounded-full`).
 - Re-verify dark mode contrast whenever an accent or surface token is tweaked.
+- Name the consuming skill in implementation plans: write "execute under `frontend-scaffold`" when the plan implements a frozen contract. A skill cannot force the harness to load it — an agent working from the plan alone skips the consumer's audit gate (observed failure: 14 contract violations shipped under a green suite).
 
 ## Related Skills
 
 - `frontend-patterns`: Component composition, React hooks, and rendering best practices.
+- `frontend-scaffold`: Downstream consumer — turns a frozen contract from this skill into a running skeleton with the audit gate.
 - `a11y`: Accessibility standards, WCAG 2.2 Level AA contrast, and screen-reader semantics.
 - `design-system`: Auditing existing CSS codebases for consistency.
 - `frontend-design-direction`: High-level aesthetic direction and typography curation.

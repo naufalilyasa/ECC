@@ -30,6 +30,12 @@ If any is missing, STOP — run `design-contract-system` first. Never invent
 tokens or states that the contract does not declare. The contract is a
 read-only input; this skill generates code, it does not redesign.
 
+> **Plans must name this skill.** A skill cannot force the harness to load it —
+> an agent working from a plan file alone bypasses every phase below, including
+> the Phase 5 audit gate. A plan implementing a contract-driven scaffold must
+> say "execute under `frontend-scaffold`" (observed failure: a scaffold built
+> from the plan alone shipped 14 contract violations under a green suite).
+
 ## Workflow
 
 ### Phase 0 — Read the Contract
@@ -107,21 +113,61 @@ the JS thread is busy. Reach for Remotion only when the deliverable is a video
 file. GSAP is not recommended for general use (Webflow-owned license, banned
 in Webflow competitors).
 
-### Phase 5 — Audit Gate
+### Phase 5 — Audit Gate (canonical audit file, contract-owned)
 
-Run the canonical `design-contract-system` Phase 4 greps on the staged diff:
+Do NOT write your own audit test and do NOT audit only the staged diff — a
+diff-scoped grep misses files committed earlier in the same session, and a
+self-written audit is how contracts get quietly weakened (observed failure:
+an agent whitelisted its own `rounded-md` output and dropped the spacing
+check entirely, shipping 14 violations under a green suite).
 
-```bash
-git diff --staged | grep -E "bg-\[#|text-\[#|border-\[#|fill-\[#" && echo "VIOLATION: Hardcoded hex" || echo "OK"
-git diff --staged | grep -E "rounded-sm|rounded-md|rounded-3xl|rounded-\[" && echo "VIOLATION: Invalid radius" || echo "OK"
-git diff --staged | grep -E "gap-1\.5|gap-2\.5|p-3\.5|m-\[|px-\[|pt-\[|w-\[|h-\[" && echo "VIOLATION: Non-4px spacing" || echo "OK"
+**Write the canonical audit file into the project** so it runs in `npm test`
+and CI, then make the code pass it:
+
+`tests/design-contract-audit.test.js` (adapt the runner block to the project's
+test framework; the rules below are the contract):
+
+```js
+// Contract-owned: rules mirror docs/design/STANDARDS.md + the page contract.
+// Weakening these rules to make output pass is itself a contract violation.
+const RADIUS_RE = /rounded-(sm|md|3xl|\[)/;
+const SPACING_HALF_RE = /(?:gap|p|px|py|pt|pb|pl|pr|m|mx|my|mt|mb|ml|mr|space-x|space-y)-[0-9]+\.5/;
+const GEOMETRY_ARBITRARY_RE = /(?:gap|p|px|py|pt|pb|pl|pr|m|mx|my|mt|mb|ml|mr|w|h|min-h|max-h|min-w|max-w|size|inset|top|right|bottom|left)-\[/;
+
+it('audit rules must stay canonical (self-check)', () => {
+  assert.ok(RADIUS_RE.test('rounded-md'), 'radius audit must flag rounded-md');
+  assert.ok(SPACING_HALF_RE.test('gap-1.5'), 'spacing audit must flag .5 fractions');
+  assert.ok(GEOMETRY_ARBITRARY_RE.test('h-['), 'geometry audit must flag arbitrary brackets');
+});
+
+it('zero arbitrary hex in class attributes', () => { /* /(bg|text|border|ring)-\[#[0-9a-fA-F]{3,6}\]/ */ });
+it('3 radius tiers only (rounded-lg/xl/2xl; rounded-full for pills/badges/avatars)', () => { /* RADIUS_RE */ });
+it('4px spacing grid, no .5 fractions, no arbitrary geometry', () => {
+  // Strip the contract-approved arbitrary values FIRST (project-specific
+  // whitelist from the plan, e.g. min-h-[640px] hero, h-[380px] cards,
+  // outline-[3px] focus ring), then apply SPACING_HALF_RE + GEOMETRY_ARBITRARY_RE.
+});
 ```
+
+Rules for this file:
+
+1. **Whitelist explicitly, by exact value** — every arbitrary geometry value the
+   page contract approves (hero heights, card heights, focus-ring width) is
+   stripped before the arbitrary-value check. Never whitelist by prefix
+   (`min-h-[` would excuse `min-h-[1px]`), and never whitelist a whole utility
+   class (`rounded-md` is not whitelistable — pills use `rounded-full`).
+2. **The self-check test is mandatory** — it crashes the suite if any rule is
+   weakened, which is what makes the audit tamper-evident.
+3. **Fixing means changing the code, not the rules** — if the audit flags
+   something the contract genuinely allows, add the exact value to the
+   whitelist AND cite the contract section in a comment.
 
 Then verify every in-scope state from the contract's Section 4 has a component,
 and every generated component consumes tokens (no raw colors anywhere).
 
-The greps above are the canonical `design-contract-system` Phase 4 set,
-extended with `px-[`, `pt-[`, `w-[`, `h-[` for stricter coverage.
+The canonical `design-contract-system` Phase 4 greps (hex / radius / spacing)
+remain valid as a quick manual pre-check, but the file above is the enforced
+gate — greps on a staged diff are not.
 
 ## Anti-Patterns
 
@@ -129,7 +175,8 @@ extended with `px-[`, `pt-[`, `w-[`, `h-[` for stricter coverage.
 - **Happy-path shells**: page components without their state components — the single most common scaffold failure
 - **Wrong animation tool**: Remotion for a hover animation, or `motion/react` for a rendered marketing video
 - **Contract drift**: regenerating a page by hand after the contract changed — re-scaffold from the contract
-- **Skipping the audit gate**: the three greps exist because hex/radius/spacing violations are invisible in review screenshots
+- **Skipping the audit gate**: the canonical audit file exists because hex/radius/spacing violations are invisible in review screenshots
+- **Writing your own audit test** (self-approval): a hand-rolled test that whitelists the output it was meant to check — the observed real-world failure. Only the canonical audit file (Phase 5), contract-owned, with the self-check test
 - **Treating the image tool as production storage**: generated images must land in the repo
 
 ## Related Skills
