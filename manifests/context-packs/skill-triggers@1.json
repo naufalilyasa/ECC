@@ -3,14 +3,14 @@
     "skills": 321,
     "withTriggers": 34
   },
-  "generatedAt": "2026-11-04T13:16:17.597Z",
+  "generatedAt": "2026-11-05T03:18:44.591Z",
   "id": "skill-triggers@1",
   "model": {
     "effort": null,
     "id": "hand-seeded",
     "source": "manual-curation-pending-regeneration"
   },
-  "registryDigest": "7cafa76622cbc4070b5b5b114de343770d1548300a5270f19fe32ee08ae3df21",
+  "registryDigest": "a6faaa63944ba7dd374ac00ac458c1a0e18262bd2191dce1ede002b2de5fdcc7",
   "schemaVersion": 1,
   "triggers": {
     "skill:agent-runtime-gateway-smoke-test": [
