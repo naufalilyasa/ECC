@@ -60,6 +60,18 @@ After removing dead code, look for:
 - Wrapper functions that add no value — inline them
 - Re-exports that serve no purpose — remove indirection
 
+## Related: Slop Cleanup (Different Job)
+
+This command removes **dead** code — unused exports, files, dependencies. It
+does not clean code that *works* but is AI-sloppy: over-defensive checks, broad
+`except` / empty `catch`, vague TODOs, oversized functions, redundant
+post-action verification. For that use the `remove-ai-slops` skill
+(`$omo:remove-ai-slops`), which locks behavior with regression tests before
+deleting anything.
+
+Run them as separate passes: dead code first, then slop. Overlap is limited to
+Step 5 above and "dead helpers".
+
 ## Step 6: Summary
 
 Report results:

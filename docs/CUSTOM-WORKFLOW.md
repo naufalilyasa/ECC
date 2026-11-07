@@ -87,12 +87,12 @@ Command custom yang telah dibuat dan diselaraskan di `.opencode/commands/` dan `
 
 ### C. Review & Dokumentasi
 6. **`/code-review-quick`** *(Baru)*
-   - **Tujuan**: Review kode cepat dengan dialog scope interaktif dan penanda riwayat git marker.
-   - **Alur**: Menanyakan scope (uncommitted vs HEAD, sejak marker terakhir, N commit) -> panggil `code-reviewer` -> catat stempel ke `.git/code-review-quick-base`.
+   - **Tujuan**: Review kode cepat dengan dialog scope interaktif dan penanda riwayat marker Markdown (`.opencode/markers/code-review-quick.md`).
+   - **Alur**: Menanyakan scope (uncommitted vs HEAD, sejak marker terakhir, N commit, atau file modified sesi ini) -> panggil `code-reviewer` -> catat stempel ke `.opencode/markers/code-review-quick.md`.
 
 7. **`/update-docs`** *(Enhanced)*
    - **Tujuan**: Sinkronisasi dokumentasi dan codemaps berdasarkan evolusi codebase.
-   - **Alur**: Membandingkan diff dari commit baseline terakhir -> panggil `explore` -> delegasikan ke `doc-updater` untuk menyematkan stempel commit: `**Last Updated:** YYYY-MM-DD · Commit: <hash>`.
+   - **Alur**: Membandingkan diff/perubahan dari baseline terakhir (header dokumen atau `.opencode/markers/docs-sync.md`) -> panggil `explore` -> delegasikan ke `doc-updater` untuk menyematkan stempel header: `**Last Updated:** YYYY-MM-DD · Commit/Snapshot: <ref>`.
 
 8. **`/init-deep`** *(Enhanced OmO Native Architecture)*
    - **Tujuan**: Inisialisasi basis pengetahuan hierarkis `AGENTS.md` proyek berstandar OmO native (root overview + modul leaf dengan skor 30 poin).
@@ -154,11 +154,11 @@ Catatan lokasi:
   dibaca OpenCode v2 (`skills.paths` hanya `./skills` relatif terhadap `~/.config/opencode/`).
   Salinan `humanizer` di sana identik dengan salinan aktif; perlakukan
   `~/.config/opencode/skills/` sebagai sumber kebenaran.
-- State file workflow tersebar secara sengaja: `.git/code-review-quick-base` dan
-  `.git/docs-sync-base` (base ref per-repo) serta `.opencode/code-review-quick-base`
-  (fallback ketika area `.git/` ditolak harness). Ketiganya aman di-`git clean`
-  hanya yang di `.opencode/`; yang di `.git/` akan hilang bila `.git/` di-reset —
-  regenerasi otomatis pada run berikutnya.
+- State file workflow disimpan dalam format Markdown murni di direktori
+  `.opencode/markers/`: `.opencode/markers/code-review-quick.md` dan
+  `.opencode/markers/docs-sync.md`. Desain ini bekerja seragam pada repositori
+  Git maupun folder non-Git (seperti project client tanpa VCS). File marker ini
+  diabaikan oleh git (`.gitignore`) dan aman di-regenerasi otomatis pada run berikutnya.
 
 ---
 

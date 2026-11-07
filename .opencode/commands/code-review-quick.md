@@ -19,12 +19,22 @@ Determine the review scope before dispatching the review:
    - Use that scope directly.
 
 2. **If `$ARGUMENTS` is empty**:
-   - Ask the user using the `question` tool with 4 options computed from the repo state:
-     1. **Since last `/code-review-quick` run** (Check `.git/code-review-quick-base`. If marker exists with commits, mark as Recommended).
-     2. **HEAD to working tree (uncommitted changes)** — check `git diff --name-only HEAD`.
-     3. **Last N commits** (default 3) — check `git diff --name-only HEAD~3...HEAD`.
-     4. **Everything since branch point** — `git merge-base HEAD origin/main`.
-   - If the `question` tool is unavailable in this turn, default to Option 2 (uncommitted changes).
+   - Check environment:
+     - Check if Git is available (`[ -d .git ]` or `git rev-parse --is-inside-work-tree` 2>/dev/null).
+     - Check `.opencode/markers/code-review-quick.md` for a previous review marker.
+   - **If Git is available**:
+     - Ask the user using the `question` tool with 4 options computed from repo state:
+       1. **Since last `/code-review-quick` run** (Check `.opencode/markers/code-review-quick.md`. If marker exists with commits, mark as Recommended).
+       2. **HEAD to working tree (uncommitted changes)** — check `git diff --name-only HEAD`.
+       3. **Last N commits** (default 3) — check `git diff --name-only HEAD~3...HEAD`.
+       4. **Everything since branch point** — `git merge-base HEAD origin/main`.
+     - If the `question` tool is unavailable in this turn, default to Option 2 (uncommitted changes).
+   - **If non-Git repository or directory**:
+     - Ask the user using the `question` tool with options:
+       1. **Since last `/code-review-quick` run** (Files modified since timestamp in `.opencode/markers/code-review-quick.md`; if marker exists, mark as Recommended).
+       2. **Recently modified files in this session** (From agent edit history / changed files store).
+       3. **Specific directory or file paths** (Prompt user for target paths).
+     - If the `question` tool is unavailable in this turn, default to Option 2 (recently modified files).
 
 ## Step 1 — Dispatch Code-Reviewer Subagent
 
@@ -36,7 +46,7 @@ subagent(agent="code-reviewer", description="Code review: <scope>")
 
 ## Review Scope
 Base/Target: <chosen base ref or file list>
-Files to review: <list of files from git diff>
+Files to review: <list of files from git diff or session changed files>
 
 ## Session Context
 <summary of what was just implemented or modified in this session>
@@ -54,8 +64,16 @@ Report findings with exact file:line citations and severity levels."
 
 Once the `code-reviewer` subagent returns:
 1. Present the findings clearly to the user.
-2. If the review was successful, record the marker so future runs know the boundary:
-   ```bash
-   echo "$(git rev-parse HEAD) $(date +%s)" > .git/code-review-quick-base
-   ```
+2. If the review was successful, record the marker in Markdown format so future runs know the boundary (works in both Git and non-Git repositories):
+   - Ensure directory exists: `mkdir -p .opencode/markers`
+   - Write `.opencode/markers/code-review-quick.md`:
+     ```markdown
+     # Code Review Quick Marker
+
+     - **Last Review**: <ISO timestamp, e.g. 2026-11-06T15:30:00Z>
+     - **Baseline**: <git commit hash or timestamp snapshot>
+     - **Reviewed Files**:
+       - <file1>
+       - <file2>
+     ```
 3. If CRITICAL or HIGH issues were found, advise resolving them before merge.
